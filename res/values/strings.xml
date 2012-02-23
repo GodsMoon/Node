@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Node</string>
+    <string name="about">About</string>
+    <string name="copyright">Variable Technologies 2012</string>
+    <string name="humidity">Humidity %RH</string>
+    <string name="barometric">Pressure kPa</string>
+    <string name="temperature">Temperature °F</string>
+    <string name="title_connecting">Connecting to Node</string>
+    <string name="title_connected">Node connected</string>
+    <string name="no_bluetooth">Bluetooth is not available on your device</string>
+    <string name="no_node">Node not found</string>
+    <string name="enable_bt">Please enable Bluetooth</string>
+
+</resources>

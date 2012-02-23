@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="layout_item_section" parent="android:Widget.Button">
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:layout_marginLeft">10dp</item>
+    </style>
+    
+        <!-- A theme that has a translucent background.  Here we explicitly specify
+         that this theme is to inherit from the system's translucent theme,
+         which sets up various attributes correctly. -->
+    <style name="Theme.Translucent" parent="android:style/Theme.Translucent">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowNoTitle">true</item> 
+        <item name="android:colorForeground">#fff</item>
+    </style>
+</resources>
