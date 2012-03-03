@@ -91,6 +91,11 @@ public class BluetoothService {
     	mHandler = handler;
     	setState(mState); //resend state to new handler
     }
+    
+    public synchronized void setReadContinually(boolean readContinually) {
+    	if(mConnectedThread != null)
+    		mConnectedThread.setReadContinually(readContinually);
+    }
 
     /**
      * Set the current state of the chat connection
@@ -111,9 +116,9 @@ public class BluetoothService {
     }
 
     /**
-     * Start the chat service. Specifically start AcceptThread to begin a
+     * Start the BT service. Specifically start AcceptThread to begin a
      * session in listening (server) mode. Called by the Activity onResume() */
-    public synchronized void start() {
+    public synchronized void start(boolean readContinually) {
         if (D) Log.d(TAG, "start");
 
         // Cancel any thread attempting to make a connection
@@ -126,19 +131,19 @@ public class BluetoothService {
 
         // Start the thread to listen on a BluetoothServerSocket
         if (mSecureAcceptThread == null) {
-            mSecureAcceptThread = new AcceptThread();
+            mSecureAcceptThread = new AcceptThread(readContinually);
             mSecureAcceptThread.start();
         }
         
         BluetoothDevice device = mAdapter.getRemoteDevice(NODE_DEVICE_ADDRESS);
-        connect(device);
+        connect(device,readContinually);
     }
 
     /**
      * Start the ConnectThread to initiate a connection to a remote device.
      * @param device  The BluetoothDevice to connect
      */
-    public synchronized void connect(BluetoothDevice device) {
+    public synchronized void connect(BluetoothDevice device, boolean readContinually) {
         if (D) Log.d(TAG, "connect to: " + device);
 
         // Cancel any thread attempting to make a connection
@@ -150,7 +155,7 @@ public class BluetoothService {
         if (mConnectedThread != null) {mConnectedThread.cancel(); mConnectedThread = null;}
 
         // Start the thread to connect with the given device
-        mConnectThread = new ConnectThread(device);
+        mConnectThread = new ConnectThread(device, readContinually);
         mConnectThread.start();
         setState(STATE_CONNECTING);
     }
@@ -160,7 +165,7 @@ public class BluetoothService {
      * @param socket  The BluetoothSocket on which the connection was made
      * @param device  The BluetoothDevice that has been connected
      */
-    public synchronized void connected(BluetoothSocket socket, BluetoothDevice device) {
+    public synchronized void connected(BluetoothSocket socket, BluetoothDevice device, boolean readContinually) {
         if (D) Log.d(TAG, "connected");
 
         // Cancel the thread that completed the connection
@@ -176,7 +181,7 @@ public class BluetoothService {
         }
 
         // Start the thread to manage the connection and perform transmissions
-        mConnectedThread = new ConnectedThread(socket);
+        mConnectedThread = new ConnectedThread(socket, readContinually);
         mConnectedThread.start();
         
         stopAllSensors();
@@ -274,9 +279,11 @@ public class BluetoothService {
         // The local server socket
         private final BluetoothServerSocket mmServerSocket;
         private String mSocketType;
+        private  boolean mReadContinually;
 
-        public AcceptThread() {
+        public AcceptThread(boolean readContinually) {
             BluetoothServerSocket tmp = null;
+            mReadContinually = readContinually;
 
             // Create a new listening server socket
             try {
@@ -313,7 +320,7 @@ public class BluetoothService {
                         case STATE_LISTEN:
                         case STATE_CONNECTING:
                             // Situation normal. Start the connected thread.
-                            connected(socket, socket.getRemoteDevice());
+                            connected(socket, socket.getRemoteDevice(),mReadContinually);
                             break;
                         case STATE_NONE:
                         case STATE_CONNECTED:
@@ -351,8 +358,10 @@ public class BluetoothService {
     private class ConnectThread extends Thread {
         private final BluetoothSocket mmSocket;
         private final BluetoothDevice mmDevice;
+        private boolean mReadContinually;
+        
 
-        public ConnectThread(BluetoothDevice device) {
+        public ConnectThread(BluetoothDevice device, boolean readContinually) {
             mmDevice = device;
             BluetoothSocket tmp = null;            
 
@@ -397,7 +406,7 @@ public class BluetoothService {
             }
 
             // Start the connected thread
-            connected(mmSocket, mmDevice);
+            connected(mmSocket, mmDevice, mReadContinually);
         }
 
         public void cancel() {
@@ -417,12 +426,14 @@ public class BluetoothService {
         private final BluetoothSocket mmSocket;
         private final InputStream mmInStream;
         private final OutputStream mmOutStream;
+        private boolean mmContinueRunning;
 
-        public ConnectedThread(BluetoothSocket socket) {
+        public ConnectedThread(BluetoothSocket socket, boolean continueRunning) {
             Log.d(TAG, "create ConnectedThread ");
             mmSocket = socket;
             InputStream tmpIn = null;
             OutputStream tmpOut = null;
+            mmContinueRunning = continueRunning;
 
             // Get the BluetoothSocket input and output streams
             try {
@@ -436,13 +447,24 @@ public class BluetoothService {
             mmOutStream = tmpOut;
         }
 
-        public void run() {
+        public void setReadContinually(boolean readContinually) {
+        	
+        	if(mmContinueRunning == false) {
+        		mmContinueRunning = readContinually;
+        		//this.run();
+        	}
+        	else
+        		mmContinueRunning = readContinually;
+        	
+		}
+
+		public void run() {
             Log.i(TAG, "BEGIN mConnectedThread");
             byte[] buffer = new byte[1024];
             int bytes;
 
             // Keep listening to the InputStream while connected
-            while (true) {
+            while (true) { //mmContinueRunning
                 try {
                 	
                 	if(D){ //Don't do this is production. It's slower.
@@ -577,8 +599,8 @@ public class BluetoothService {
         	mConnectedThread.write(msgBuffer);
 	}
 	
-	public static String WEATHER_ON = "WEATHER1";
-    public static String WEATHER_OFF = "WEATHER0";
+	public static String WEATHER_ON = "WEATHER1\n";
+    public static String WEATHER_OFF = "WEATHER0\n";
     
 	public void startWeather() {
 

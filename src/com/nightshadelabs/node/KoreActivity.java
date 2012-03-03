@@ -76,8 +76,9 @@ public class KoreActivity extends BaseSensorActivity {
             // Only if the state is STATE_NONE, do we know that we haven't started already
             if (BTService.getState() == BluetoothService.STATE_NONE) {
               // Start the Bluetooth chat services
-            	BTService.start();
+            	BTService.start(true); //need to read and write
             }
+
         }
 		
 	}
@@ -141,7 +142,8 @@ public class KoreActivity extends BaseSensorActivity {
                 
                 if(msg.arg1 ==  BluetoothService.STATE_CONNECTED) {
                 	
-                	BTService.startAllCoreSensors();
+                	//BTService.setReadContinually(true);
+                	BTService.startAllCoreSensors();                	
                 }               
                 
                 break;           

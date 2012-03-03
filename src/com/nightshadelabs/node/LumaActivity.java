@@ -1,13 +1,22 @@
 package com.nightshadelabs.node;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class LumaActivity extends BaseSensorActivity {
 
@@ -34,16 +43,39 @@ public class LumaActivity extends BaseSensorActivity {
 	private Button buttonOff;
 	private Button buttonLED;
 	
+	private Boolean[] stateArray = new Boolean[9];
+	private Boolean allOn = false;
+	private static int NONE = 0;
+	private static int ALL = 9;
+	
 	Node app;
 	
 	private OnClickListener onButtonClickListener;
+	private LumaActivity  context;
+	
+	private SharedPreferences preferences;
+	private SharedPreferences.Editor editor;
+	
+	public static String PATTERN1 = "PATTERN1";
+	public static String PATTERN2 = "PATTERN2";
+	public static String PATTERN3 = "PATTERN3";
+	public static String PATTERN1_DEFAULT = "10000001";
+	public static String PATTERN2_DEFAULT = "01100110";
+	public static String PATTERN3_DEFAULT = "00011000";	
+	
+	
+	private String patternKey = "";
+	private Timer timer;
+	private TimerTask refresher;
 
+	private int currentPattern = 1;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.luma);
                              
+        context = this;
         
         button1 = (Button)findViewById(R.id.button1); 
         button2 = (Button)findViewById(R.id.button2); 
@@ -62,34 +94,7 @@ public class LumaActivity extends BaseSensorActivity {
         buttonOff = (Button)findViewById(R.id.buttonOff);
         buttonLED = (Button)findViewById(R.id.buttonLED);
         
-        //button1.setOnClickListener(onButtonClickListener);
-        button2.setOnClickListener(onButtonClickListener);        
-        button3.setOnClickListener(onButtonClickListener);
-        button4.setOnClickListener(onButtonClickListener);
-        button5.setOnClickListener(onButtonClickListener);
-        button6.setOnClickListener(onButtonClickListener);
-        button7.setOnClickListener(onButtonClickListener);
-        button8.setOnClickListener(onButtonClickListener);
-        
-        buttonPattern1.setOnClickListener(onButtonClickListener);
-        buttonPattern2.setOnClickListener(onButtonClickListener);
-        buttonPattern3.setOnClickListener(onButtonClickListener);
-        
-        buttonOn.setOnClickListener(onButtonClickListener);
-        buttonOff.setOnClickListener(onButtonClickListener);
-        buttonLED.setOnClickListener(onButtonClickListener);
-        
-        
-        button1.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-				updateLED("00000001");
-				
-			}
-		});
-        
+
         onButtonClickListener = new OnClickListener() {
 			
 			@Override
@@ -97,8 +102,8 @@ public class LumaActivity extends BaseSensorActivity {
 				
 				switch(v.getId()){
 				
-					case R.id.button1:
-						updateLED("00000001");
+					case R.id.button1:						
+						updateLED("00000001");							
 						break;
 					case R.id.button2:
 						updateLED("00000010");
@@ -122,27 +127,56 @@ public class LumaActivity extends BaseSensorActivity {
 						updateLED("10000000");
 						break;
 					case R.id.buttonPattern1:
-						break;
 					case R.id.buttonPattern2:
-						break;
 					case R.id.buttonPattern3:
+						askForPattern((v.getId())); //send buttonPattern ID
 						break;
 					case R.id.buttonOn:
-						updateLED("11111111");
+						reScheduleTimer();						
 						break;
 					case R.id.buttonOff:
-						updateLED("00000000");
+						stopLEDPatternSequence();
 						break;
 					case R.id.buttonLED:
+						if(allOn == false)
+						{
+							updateLED("11111111");
+							allOn = true;
+						}
+						else{
+							updateLED("00000000");
+							allOn = false;
+						}
 						break;
 				}
 				
-			}
+			}			
 		};
+		
+		button1.setOnClickListener(onButtonClickListener);
+        button2.setOnClickListener(onButtonClickListener);        
+        button3.setOnClickListener(onButtonClickListener);
+        button4.setOnClickListener(onButtonClickListener);
+        button5.setOnClickListener(onButtonClickListener);
+        button6.setOnClickListener(onButtonClickListener);
+        button7.setOnClickListener(onButtonClickListener);
+        button8.setOnClickListener(onButtonClickListener);
+        
+        buttonPattern1.setOnClickListener(onButtonClickListener);
+        buttonPattern2.setOnClickListener(onButtonClickListener);
+        buttonPattern3.setOnClickListener(onButtonClickListener);
+        
+        buttonOn.setOnClickListener(onButtonClickListener);
+        buttonOff.setOnClickListener(onButtonClickListener);
+        buttonLED.setOnClickListener(onButtonClickListener);
                
         
         app = (Node)getApplication();
         sensor = app.getSensor();
+        
+		preferences = PreferenceManager.getDefaultSharedPreferences(context);
+		editor = preferences.edit();
+           
     }
 	
 	@Override
@@ -158,19 +192,150 @@ public class LumaActivity extends BaseSensorActivity {
             // Only if the state is STATE_NONE, do we know that we haven't started already
             if (BTService.getState() == BluetoothService.STATE_NONE) {
               // Start the Bluetooth chat services
-            	BTService.start();
-            }            
+            	BTService.start(false); // don't need to read, only write
+            }
+            else{
+            	BTService.setReadContinually(false);// don't need to read, only write
+            }
         }
+        
+        updateLED("00000000");// turn off all the lights to start with
 		
+	}
+	
+	//Schedule the first time, reSchedule after stopped
+	public void reScheduleTimer() {
+		
+		timer = new Timer();    
+        refresher = new MyTimerTask(); 
+        // first event immediately,  following after 1/2 seconds each
+        timer.scheduleAtFixedRate(refresher, 0, 500); 
+	}
+	
+	private class MyTimerTask extends TimerTask {
+		  @Override
+		  public void run() {
+			  startLEDPatternSequence();
+		  }
+		}
+	
+	protected void startLEDPatternSequence() {
+		
+		if(currentPattern == 1){
+			updateLED(preferences.getString(PATTERN1, PATTERN1_DEFAULT));
+			currentPattern++;
+		}else if(currentPattern == 2){
+			updateLED(preferences.getString(PATTERN2, PATTERN2_DEFAULT));
+			currentPattern++;
+		}else if(currentPattern == 3){
+			updateLED(preferences.getString(PATTERN3, PATTERN3_DEFAULT));
+			currentPattern = 1;
+		}			
+		
+	}	
+	
+	private void stopLEDPatternSequence() {
+	    	
+    	if(timer != null)
+        	timer.cancel();
+		updateLED("00000000");		
+	}
+		
+
+	private void askForPattern(final int id) {				
+		
+		final Dialog dialog = new Dialog(context);
+
+		dialog.setContentView(R.layout.pattern_dialog);
+		
+		final EditText input = (EditText) dialog.findViewById(R.id.input);
+		Button ok = (Button) dialog.findViewById(R.id.ok);
+		Button cancel = (Button) dialog.findViewById(R.id.cancel);
+		
+		cancel.setOnClickListener(new OnClickListener() {		
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();			
+			}
+		});
+		
+		String previousSave = "";
+		
+		switch(id){
+				
+		case R.id.buttonPattern1:
+			dialog.setTitle("Pattern 1");
+			patternKey = PATTERN1;		
+			previousSave = preferences.getString(patternKey, PATTERN1_DEFAULT);
+			break;
+		case R.id.buttonPattern2:
+			dialog.setTitle("Pattern 2");
+			patternKey = PATTERN2;
+			previousSave = preferences.getString(patternKey, PATTERN2_DEFAULT);
+			break;
+		case R.id.buttonPattern3:
+			dialog.setTitle("Pattern 3");
+			patternKey = PATTERN3;
+			previousSave = preferences.getString(patternKey, PATTERN3_DEFAULT);
+			break;
+		
+		}
+		
+		input.setText(previousSave);
+		
+		ok.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(inputIsGood(input.getText().toString()))
+				{
+					editor.putString(patternKey, input.getText().toString());
+					editor.commit();
+					dialog.dismiss();	
+					
+					Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show();
+											
+				}				
+				
+			}
+		});
+		
+		dialog.show();
+		
+	}
+
+	//returns true if input is only 1's or 0's. Otherwise false.
+	protected boolean inputIsGood(String input) {
+		
+		int len = input.length();
+		
+		if(len != 8){
+			Toast.makeText(context, "Must be 8 digits long.", Toast.LENGTH_LONG).show();
+			return false;
+		}
+		
+	    for(int i=0;i<len;i++) {
+	        char c = input.charAt(i);
+	        // Test 1's and 0's
+	        if('0'==c || c=='1') continue;	       
+	        // If we get here, we had an invalid char, fail right away
+	        Toast.makeText(context, "Only 1 and 0 are allowed.", Toast.LENGTH_LONG).show();
+	        return false;
+	    }
+	    // All seen chars were valid, succeed
+	    return true;
 	}
 
     @Override
     public void onStop() {
         super.onStop();
+        
+        stopLEDPatternSequence();
+        
         if(D) Log.e(TAG, "-- ON STOP --");
-    }
+    }  
 
-    @Override
+	@Override
     public void onDestroy() {
         super.onDestroy();
         
@@ -178,6 +343,19 @@ public class LumaActivity extends BaseSensorActivity {
         if (BTService != null) BTService.stop();
         
         if(D) Log.e(TAG, "--- ON DESTROY ---");
+    }
+    
+    private boolean toggleLED(int whichLED) {
+    	
+    	if(stateArray[whichLED])
+    	{
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
+    	
+
     }
     
     private void updateLED(String led) {

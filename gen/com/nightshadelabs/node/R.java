@@ -139,6 +139,7 @@ public final class R {
         public static final int buttonPattern1=0x7f070033;
         public static final int buttonPattern2=0x7f070034;
         public static final int buttonPattern3=0x7f070035;
+        public static final int cancel=0x7f070040;
         public static final int climaButton=0x7f070039;
         public static final int connect=0x7f070001;
         public static final int facebook=0x7f070015;
@@ -156,8 +157,10 @@ public final class R {
         public static final int imageView3=0x7f070010;
         public static final int imageView4=0x7f070008;
         public static final int imageView5=0x7f070007;
+        public static final int input=0x7f07003e;
         public static final int koreButton=0x7f070038;
         public static final int koreHeader=0x7f070016;
+        public static final int layout_root=0x7f07003c;
         public static final int linearLayout1=0x7f070002;
         public static final int linearLayout2=0x7f070004;
         public static final int linearLayout3=0x7f070024;
@@ -168,8 +171,10 @@ public final class R {
         public static final int magnaX=0x7f07001b;
         public static final int magnaY=0x7f07001c;
         public static final int magnaZ=0x7f07001d;
+        public static final int ok=0x7f07003f;
         public static final int temp=0x7f070006;
         public static final int temperature=0x7f070009;
+        public static final int text=0x7f07003d;
         public static final int textView1=0x7f070000;
         public static final int twitter=0x7f070014;
     }
@@ -180,7 +185,8 @@ public final class R {
         public static final int kore=0x7f030003;
         public static final int luma=0x7f030004;
         public static final int main=0x7f030005;
-        public static final int splash=0x7f030006;
+        public static final int pattern_dialog=0x7f030006;
+        public static final int splash=0x7f030007;
     }
     public static final class string {
         public static final int about=0x7f050001;

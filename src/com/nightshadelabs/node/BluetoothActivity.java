@@ -71,7 +71,7 @@ public class BluetoothActivity extends Activity {
 			// Only if the state is STATE_NONE, do we know that we haven't started already
 			//if (BTService.getState() == BluetoothService.STATE_NONE) {
 				// Start the Bluetooth chat services
-				BTService.start();
+				BTService.start(false); // don't need to read data yet
 			//}
 		//}
 	}
@@ -86,9 +86,6 @@ public class BluetoothActivity extends Activity {
 				switch (msg.arg1) {
 				case BluetoothService.STATE_CONNECTED:
 
-					//setStatus(R.string.title_connected);
-					//Intent i = new Intent(context, MainActivity.class);	
-					//startActivity(i);
 					finish();
 					
 					break;

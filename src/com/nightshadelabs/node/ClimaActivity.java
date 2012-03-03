@@ -51,9 +51,10 @@ public class ClimaActivity extends BaseSensorActivity {
             // Only if the state is STATE_NONE, do we know that we haven't started already
             if (BTService.getState() == BluetoothService.STATE_NONE) {
               // Start the Bluetooth chat services
-            	BTService.start();
+            	BTService.start(true); //need to read and write
             }
         }		
+        
 	}
 
     @Override
@@ -96,7 +97,7 @@ public class ClimaActivity extends BaseSensorActivity {
                 if(D) Log.i(TAG, "MESSAGE_STATE_CHANGE: " + msg.arg1);
                 
                 if(msg.arg1 ==  BluetoothService.STATE_CONNECTED) {
-                	
+                	//BTService.setReadContinually(true);
                 	BTService.startWeather();
                 }
                 break;
