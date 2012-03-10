@@ -11,5 +11,15 @@
     <string name="no_bluetooth">Bluetooth is not available on your device</string>
     <string name="no_node">Node not found</string>
     <string name="enable_bt">Please enable Bluetooth</string>
+    <string name="about_detail">NODE Android Demo App is a product from Variable Technologies (variabletech.com).\n\nNODE exists to sense and measure the world around us. Currently, a single NODE device can serve as a flashlight, measure the climate around it, and monitor its own position in space. In the near future, NODE devices will work together to form networks of sensor data. Future interchangeable modules will enable each device to monitor hazardous gases, detect gamma radiation, measure temperature at a distance, and more. NODE is meant to be a tool in whatever context you can imagine. What can you do with it?\n\nFounded by CEO George Yu, Variable believes we are a world of gadgeteers, spearheading new technology and developing new gadgets that can add layers of simplicity, function, and wonder to everyday life. Variable aims to birth the brainchildren of CEO George Yu and his team. Started in a living room, they now work with NASA. \n\nWelcome to the world of Gadgeteers.  </string>
+    
+    <!--  DeviceListActivity -->
+    <string name="scanning">scanning for devices...</string>
+    <string name="select_device">select a device to connect</string>
+    <string name="none_paired">No devices have been paired</string>
+    <string name="none_found">No devices found</string>
+    <string name="title_paired_devices">Paired Devices</string>
+    <string name="title_other_devices">Other Available Devices</string>
+    <string name="button_scan">Scan for devices</string>
 
 </resources>

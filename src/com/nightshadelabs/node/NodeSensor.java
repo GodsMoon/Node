@@ -76,27 +76,32 @@ public class NodeSensor{
 						if(thisPart.startsWith("T0:"))
 						{
 							weather.temperature0 = thisPart.substring(3, thisPart.length()-2); // replace("T0:", "").replace("C", "")
-							foundT0 = true;
+							if(weather.temperature0.length() != 0)
+								foundT0 = true;
 						}
 						else if(thisPart.startsWith("T1:"))
 						{
 							weather.temperature1 = thisPart.substring(3, thisPart.length()-2);
-							foundT1 = true;
+							if(weather.temperature1.length() != 0)
+								foundT1 = true;
 						}
 						else if(thisPart.startsWith("P0:"))
 						{
 							weather.barometric0 = thisPart.substring(3, thisPart.length()-3);
-							foundP0 = true;
+							if(weather.barometric0.length() != 0)
+								foundP0 = true;
 						}
 						else if(thisPart.startsWith("P1:"))
 						{
 							weather.barometric1 = thisPart.substring(3, thisPart.length()-3);
-							foundP1 = true;
+							if(weather.barometric1.length() != 0)
+								foundP1 = true;
 						}
 						else if(thisPart.startsWith("Humi:"))
 						{
-							weather.humidity = thisPart.substring(5, thisPart.length()-2);
-							foundH = true;
+							weather.humidity = thisPart.substring(5, thisPart.length()-2);							
+							if(weather.humidity.length() != 0)
+								foundH = true;
 						}
 						
 						if(foundT0 == true && foundT1 == true && foundP0 == true && foundP1 == true && foundH == true)
@@ -243,6 +248,10 @@ public class NodeSensor{
 			String temperature0;
 			String temperature1;
 			
+			/** Get Temperature in Fahrenheit from weather sensor (T0).
+			 * 
+			 * @return Temperature or Null
+			 */
 			public Double getTemperatureF()
 			{								
 				Double celcius = Double.valueOf(temperature0);
@@ -271,8 +280,13 @@ public class NodeSensor{
 			
 			public Double getHumidity()
 			{				
-				
-				return Double.valueOf(humidity);
+				try{
+					return Double.valueOf(humidity);
+				}
+				catch(NullPointerException e)
+				{
+					return (double) 0;
+				}
 			}
 
 		}

@@ -60,7 +60,7 @@ public class SplashActivity extends Activity {
             // Only if the state is STATE_NONE, do we know that we haven't started already
             if (BTService.getState() == BluetoothService.STATE_NONE) {
             	// Start the Bluetooth services
-            	BTService.start(false); // don't need to read data yet
+            	BTService.start();
             }
         }
 	}

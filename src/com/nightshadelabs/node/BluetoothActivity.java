@@ -64,16 +64,8 @@ public class BluetoothActivity extends Activity {
 		Node app = (Node)getApplication();
 		BTService = app.getBTService(mHandler);  
 
-		// Performing this check in onResume() covers the case in which BT was
-		// not enabled during onStart(), so we were paused to enable it...
-		// onResume() will be called when ACTION_REQUEST_ENABLE activity returns.
-		//if (BTService != null) {
-			// Only if the state is STATE_NONE, do we know that we haven't started already
-			//if (BTService.getState() == BluetoothService.STATE_NONE) {
-				// Start the Bluetooth chat services
-				BTService.start(false); // don't need to read data yet
-			//}
-		//}
+		BTService.start(); 
+
 	}
 
 	// The Handler that gets information back from the BluetoothService
@@ -98,7 +90,10 @@ public class BluetoothActivity extends Activity {
 			}
 			else if(msg.what == Node.MESSAGE_ERROR){
 
-				setStatus(R.string.no_node);				
+				setStatus(R.string.no_node);
+				
+				Intent serverIntent = new Intent(context, DeviceListActivity.class);
+				startActivity(serverIntent);
 
 			}    		
 		}
@@ -111,11 +106,10 @@ public class BluetoothActivity extends Activity {
 		case REQUEST_ENABLE_BT:
 			// When the request to enable Bluetooth returns
 			if (resultCode == Activity.RESULT_OK) {
-				// Bluetooth is now enabled, so set up a chat session
+				// Bluetooth is now enabled, so set up a BT session
 				connectToBluetooth();     
 			} else {
 				// User did not enable Bluetooth or an error occurred
-				//Log.d(TAG, "BT not enabled");
 
 				setStatus(R.string.enable_bt);
 			}

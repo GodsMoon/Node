@@ -51,7 +51,7 @@ public class ClimaActivity extends BaseSensorActivity {
             // Only if the state is STATE_NONE, do we know that we haven't started already
             if (BTService.getState() == BluetoothService.STATE_NONE) {
               // Start the Bluetooth chat services
-            	BTService.start(true); //need to read and write
+            	BTService.start();
             }
         }		
         

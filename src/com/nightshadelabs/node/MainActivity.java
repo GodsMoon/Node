@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 	
@@ -25,6 +26,7 @@ public class MainActivity extends Activity {
         Button kore = (Button)findViewById(R.id.koreButton);
         Button clima = (Button)findViewById(R.id.climaButton);
         Button luma = (Button)findViewById(R.id.lumaButton);
+        Button about = (Button)findViewById(R.id.about);
         
         kore.setOnClickListener(new OnClickListener() {
 			
@@ -56,6 +58,15 @@ public class MainActivity extends Activity {
 				Intent i = new Intent(context,LumaActivity.class);				
 				startActivity(i);
 				
+			}
+		});
+        
+        about.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(context,AboutActivity.class);				
+				startActivity(i);
 			}
 		});
     }

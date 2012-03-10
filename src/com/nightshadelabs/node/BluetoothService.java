@@ -31,9 +31,11 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 /**
@@ -45,7 +47,7 @@ import android.util.Log;
 public class BluetoothService {
     // Debugging
     private static final String TAG = "BluetoothService";
-    private static final boolean D = true;
+    private static final boolean D = false;
 
     // Name for the SDP record when creating server socket
     private static final String NAME_SECURE = "BluetoothSecure";
@@ -56,6 +58,7 @@ public class BluetoothService {
     
     //private static final String NODE_DEVICE_ADDRESS = "00:06:66:43:47:16";//00:06:66:43:47:16
     private static final String NODE_DEVICE_ADDRESS = "00:06:66:43:44:F9";//00:06:66:43:47:16
+    public static final String NODE_DEVICE_ADDRESS_KEY = "NODE_DEVICE_ADDRESS_KEY";
 
     // Member fields
     private final BluetoothAdapter mAdapter;
@@ -65,6 +68,7 @@ public class BluetoothService {
     private ConnectedThread mConnectedThread;
     private int mState;
     private NodeSensor mSensor;
+    private SharedPreferences preferences;
 
     // Constants that indicate the current connection state
     public static final int STATE_NONE = 0;       // we're doing nothing
@@ -84,17 +88,14 @@ public class BluetoothService {
         
         //Node n = (Node)context.getApplicationContext();
         
+        preferences = PreferenceManager.getDefaultSharedPreferences((Context)n);
+        
         mSensor = n.getSensor();
     }
     
     public synchronized void setHandler(Handler handler) {
     	mHandler = handler;
     	setState(mState); //resend state to new handler
-    }
-    
-    public synchronized void setReadContinually(boolean readContinually) {
-    	if(mConnectedThread != null)
-    		mConnectedThread.setReadContinually(readContinually);
     }
 
     /**
@@ -118,7 +119,7 @@ public class BluetoothService {
     /**
      * Start the BT service. Specifically start AcceptThread to begin a
      * session in listening (server) mode. Called by the Activity onResume() */
-    public synchronized void start(boolean readContinually) {
+    public synchronized void start() {
         if (D) Log.d(TAG, "start");
 
         // Cancel any thread attempting to make a connection
@@ -131,19 +132,21 @@ public class BluetoothService {
 
         // Start the thread to listen on a BluetoothServerSocket
         if (mSecureAcceptThread == null) {
-            mSecureAcceptThread = new AcceptThread(readContinually);
+            mSecureAcceptThread = new AcceptThread();
             mSecureAcceptThread.start();
         }
         
-        BluetoothDevice device = mAdapter.getRemoteDevice(NODE_DEVICE_ADDRESS);
-        connect(device,readContinually);
+        //BluetoothDevice device = mAdapter.getRemoteDevice(NODE_DEVICE_ADDRESS);
+        String address = preferences.getString(NODE_DEVICE_ADDRESS_KEY, NODE_DEVICE_ADDRESS);
+        BluetoothDevice device = mAdapter.getRemoteDevice(address);
+        connect(device);
     }
 
     /**
      * Start the ConnectThread to initiate a connection to a remote device.
      * @param device  The BluetoothDevice to connect
      */
-    public synchronized void connect(BluetoothDevice device, boolean readContinually) {
+    public synchronized void connect(BluetoothDevice device) {
         if (D) Log.d(TAG, "connect to: " + device);
 
         // Cancel any thread attempting to make a connection
@@ -155,7 +158,7 @@ public class BluetoothService {
         if (mConnectedThread != null) {mConnectedThread.cancel(); mConnectedThread = null;}
 
         // Start the thread to connect with the given device
-        mConnectThread = new ConnectThread(device, readContinually);
+        mConnectThread = new ConnectThread(device);
         mConnectThread.start();
         setState(STATE_CONNECTING);
     }
@@ -165,7 +168,7 @@ public class BluetoothService {
      * @param socket  The BluetoothSocket on which the connection was made
      * @param device  The BluetoothDevice that has been connected
      */
-    public synchronized void connected(BluetoothSocket socket, BluetoothDevice device, boolean readContinually) {
+    public synchronized void connected(BluetoothSocket socket, BluetoothDevice device) {
         if (D) Log.d(TAG, "connected");
 
         // Cancel the thread that completed the connection
@@ -181,7 +184,7 @@ public class BluetoothService {
         }
 
         // Start the thread to manage the connection and perform transmissions
-        mConnectedThread = new ConnectedThread(socket, readContinually);
+        mConnectedThread = new ConnectedThread(socket);
         mConnectedThread.start();
         
         stopAllSensors();
@@ -279,11 +282,9 @@ public class BluetoothService {
         // The local server socket
         private final BluetoothServerSocket mmServerSocket;
         private String mSocketType;
-        private  boolean mReadContinually;
 
-        public AcceptThread(boolean readContinually) {
+        public AcceptThread() {
             BluetoothServerSocket tmp = null;
-            mReadContinually = readContinually;
 
             // Create a new listening server socket
             try {
@@ -320,7 +321,7 @@ public class BluetoothService {
                         case STATE_LISTEN:
                         case STATE_CONNECTING:
                             // Situation normal. Start the connected thread.
-                            connected(socket, socket.getRemoteDevice(),mReadContinually);
+                            connected(socket, socket.getRemoteDevice());
                             break;
                         case STATE_NONE:
                         case STATE_CONNECTED:
@@ -358,10 +359,8 @@ public class BluetoothService {
     private class ConnectThread extends Thread {
         private final BluetoothSocket mmSocket;
         private final BluetoothDevice mmDevice;
-        private boolean mReadContinually;
-        
 
-        public ConnectThread(BluetoothDevice device, boolean readContinually) {
+        public ConnectThread(BluetoothDevice device) {
             mmDevice = device;
             BluetoothSocket tmp = null;            
 
@@ -406,7 +405,7 @@ public class BluetoothService {
             }
 
             // Start the connected thread
-            connected(mmSocket, mmDevice, mReadContinually);
+            connected(mmSocket, mmDevice);
         }
 
         public void cancel() {
@@ -426,14 +425,12 @@ public class BluetoothService {
         private final BluetoothSocket mmSocket;
         private final InputStream mmInStream;
         private final OutputStream mmOutStream;
-        private boolean mmContinueRunning;
 
-        public ConnectedThread(BluetoothSocket socket, boolean continueRunning) {
+        public ConnectedThread(BluetoothSocket socket) {
             Log.d(TAG, "create ConnectedThread ");
             mmSocket = socket;
             InputStream tmpIn = null;
             OutputStream tmpOut = null;
-            mmContinueRunning = continueRunning;
 
             // Get the BluetoothSocket input and output streams
             try {
@@ -447,24 +444,13 @@ public class BluetoothService {
             mmOutStream = tmpOut;
         }
 
-        public void setReadContinually(boolean readContinually) {
-        	
-        	if(mmContinueRunning == false) {
-        		mmContinueRunning = readContinually;
-        		//this.run();
-        	}
-        	else
-        		mmContinueRunning = readContinually;
-        	
-		}
-
-		public void run() {
+        public void run() {
             Log.i(TAG, "BEGIN mConnectedThread");
             byte[] buffer = new byte[1024];
             int bytes;
 
             // Keep listening to the InputStream while connected
-            while (true) { //mmContinueRunning
+            while (true) {
                 try {
                 	
                 	if(D){ //Don't do this is production. It's slower.

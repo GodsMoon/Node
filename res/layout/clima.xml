@@ -68,7 +68,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="70.0"
                         android:textColor="@android:color/white"
                         android:textSize="40sp" android:layout_marginTop="10dp"/>
 
@@ -110,7 +109,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="70.0"
                         android:textColor="@android:color/white" android:textSize="40sp" android:layout_marginTop="10dp"/>
 
                     <TextView
@@ -150,7 +148,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="70.0"
                         android:textColor="@android:color/white"
                         android:textSize="40sp" android:layout_marginTop="10dp"/>
 

@@ -28,17 +28,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".BluetoothActivity"  android:theme="@style/Theme.Translucent"/>
+        <activity android:name=".DeviceListActivity" android:theme="@android:style/Theme.Dialog"
+                  android:configChanges="orientation|keyboardHidden" /> 
             
-        <activity android:name=".AboutActivity" />        
-        <activity android:name=".ClimaActivity" />
+        <activity android:name=".AboutActivity" android:screenOrientation="portrait" />        
+        <activity android:name=".ClimaActivity" android:screenOrientation="portrait"/>
         <activity android:name=".KoreActivity" android:screenOrientation="portrait" />
-        <activity android:name=".LumaActivity" />
+        <activity android:name=".LumaActivity" android:screenOrientation="portrait" />
         
         <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 		<uses-permission android:name="android.permission.BLUETOOTH" />  
-		
-		<activity android:name=".BluetoothTest" android:icon="@drawable/bluetooth_node_n">
-        </activity>       
+		    
 
     </application>
     
