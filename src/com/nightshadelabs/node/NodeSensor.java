@@ -254,28 +254,49 @@ public class NodeSensor{
 			 */
 			public Double getTemperatureF()
 			{								
-				Double celcius = Double.valueOf(temperature0);
+				try{
+					Double celcius = Double.valueOf(temperature0);
+					
+					Double fahrenheit = ((celcius * 9 / 5) + 32);								
+					
+					return round(fahrenheit, 2, BigDecimal.ROUND_HALF_EVEN); //round to 2 decimals because of division.
+				}
+				catch(NullPointerException e)
+				{
+					return (double) 0;
+				}
 				
-				Double fahrenheit = ((celcius * 9 / 5) + 32);								
-				
-				return round(fahrenheit, 2, BigDecimal.ROUND_HALF_EVEN); //round to 2 decimals because of division.
 			}
 			
 			public Double getTemperatureC()
 			{				
-				Double celcius = Double.valueOf(temperature0);
+				try{
+					Double celcius = Double.valueOf(temperature0);
 
-				return celcius;
+					return celcius;
+				}
+				catch(NullPointerException e)
+				{
+					return (double) 0;
+				}
+				
 			}
 			
 			public Double getBarometricKPA()
 			{				
-				if(barometric0 != null){
-					Double celcius = Double.valueOf(barometric0);
-					
-					return celcius/1000;
+				try{
+					if(barometric0 != null){
+						Double celcius = Double.valueOf(barometric0);
+						
+						return celcius/1000;
+					}
+					return null;
 				}
-				return null;
+				catch(NullPointerException e)
+				{
+					return (double) 0;
+				}
+				
 			}
 			
 			public Double getHumidity()

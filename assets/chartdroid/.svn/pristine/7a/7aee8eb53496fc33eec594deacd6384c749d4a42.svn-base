@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res/com.kostmo.commute"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+
+
+	<LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal">
+				  
+		        
+		<EditText
+			android:hint="Enter route title"
+			android:id="@+id/field_pair_title"
+	        android:inputType="textCapWords"
+			android:layout_height="wrap_content"
+			        android:layout_width="fill_parent"
+			        android:layout_weight="1" />
+			
+			  
+		<Button android:text="Save" android:id="@+id/button_save_pair"
+			android:layout_height="wrap_content" android:layout_width="wrap_content" />
+
+					     
+	  </LinearLayout>
+		  
+
+		
+	<TabHost
+		android:id="@android:id/tabhost"
+		android:layout_weight="1"
+		android:layout_height="fill_parent"
+		android:layout_width="fill_parent">
+		
+		<LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="5dp">
+		
+			<TabWidget
+			android:id="@android:id/tabs"
+			android:layout_height="wrap_content"
+			android:layout_width="fill_parent" />
+				
+			<FrameLayout
+					android:id="@android:id/tabcontent"
+					android:layout_weight="1"
+					android:layout_height="fill_parent"
+					android:layout_width="fill_parent">
+					
+				<com.kostmo.commute.view.LocationConfiguratorLayout
+					android:id="@+id/compound_selector_origin" app:title="Origin"
+					android:layout_weight="1" android:layout_height="fill_parent"
+					android:layout_width="fill_parent" />
+			
+				<com.kostmo.commute.view.LocationConfiguratorLayout
+					android:id="@+id/compound_selector_destination" app:title="Destination"
+					android:layout_weight="1" android:layout_height="fill_parent"
+					android:layout_width="fill_parent" />
+			    
+		    </FrameLayout>
+	    
+	    </LinearLayout>
+
+	</TabHost>
+
+</LinearLayout>

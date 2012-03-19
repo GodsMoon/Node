@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+		android:orientation="vertical"
+       >
+
+
+    <TextView android:id="@+id/location_title"
+		android:layout_marginRight="8sp"
+    	android:text="Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView android:id="@+id/location_address"
+    	android:textColor="@color/lemon_custard"
+		android:layout_marginRight="8sp"
+    	android:text="Address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView android:id="@+id/location_wireless"
+    	android:textColor="@color/lemon_custard"
+		android:layout_marginRight="8sp"
+    	android:text="Wireless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+	<include layout="@layout/latlon_pair_horizontal" />
+	
+	
+	<LinearLayout
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+	android:orientation="horizontal"
+      >
+      	    <TextView
+	    	android:text="Usage count:"
+	    	android:layout_marginRight="5sp"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" />
+      
+	    <TextView android:id="@+id/location_route_usage_count"
+	    	android:textColor="@color/lemon_custard"
+	    	android:text="X"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" />
+
+	</LinearLayout>
+</LinearLayout>
