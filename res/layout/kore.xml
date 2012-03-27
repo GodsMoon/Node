@@ -58,7 +58,7 @@
                     android:layout_height="fill_parent"
                     android:layout_alignLeft="@+id/imageView2"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="70dp"
+                    android:layout_marginLeft="40dp"
                     android:orientation="vertical" >
 
                     <TextView
@@ -85,6 +85,13 @@
                         android:text="Z:"
                         android:textAppearance="?android:attr/textAppearanceMedium" android:textColor="@android:color/white"/>
                 </LinearLayout>
+                
+                <LinearLayout
+                    android:id="@+id/chart1"
+                    android:layout_width="200dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
 
             </RelativeLayout>
 
@@ -108,7 +115,7 @@
                     android:layout_height="fill_parent"
                     android:layout_alignLeft="@+id/imageView3"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="70dp"
+                    android:layout_marginLeft="40dp"
                     android:orientation="vertical" >
 
                     <TextView
@@ -141,7 +148,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true" >
+                    android:layout_centerVertical="true" android:visibility="gone">
                 </FrameLayout>
 
                 <TextView
@@ -153,6 +160,13 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/white" android:layout_centerVertical="true" android:visibility="gone"/>
 
+                <LinearLayout
+                    android:id="@+id/chart2"
+                    android:layout_width="200dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+                
             </RelativeLayout>
             
             <RelativeLayout
@@ -175,7 +189,7 @@
                     android:layout_height="fill_parent"
                     android:layout_alignLeft="@+id/imageView5"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="70dp"
+                    android:layout_marginLeft="40dp"
                     android:orientation="vertical" >
 
                     <TextView
@@ -202,6 +216,14 @@
                         android:text="G:"
                         android:textAppearance="?android:attr/textAppearanceMedium" android:textColor="@android:color/white"/>
                 </LinearLayout>
+                
+                <LinearLayout
+                    android:id="@+id/chart3"
+                    android:layout_width="200dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+                
             </RelativeLayout>
 
         </LinearLayout>

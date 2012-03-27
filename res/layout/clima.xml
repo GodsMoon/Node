@@ -60,7 +60,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
-                     android:layout_marginLeft="45dp"
+                     android:layout_marginLeft="20dp"
                     android:orientation="vertical" android:id="@+id/tempLayout">
 
                     <TextView
@@ -81,9 +81,9 @@
                         android:textColor="@android:color/white" android:layout_marginTop="-7dp"/>
 
                 </LinearLayout>
-                
+
                 <LinearLayout
-                    android:id="@+id/chart"
+                    android:id="@+id/chart1"
                     android:layout_width="200dp"
                     android:layout_height="80dp"
                     android:layout_alignParentRight="true"
@@ -108,7 +108,7 @@
                 <LinearLayout                   
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
-                    android:layout_marginLeft="45dp"
+                    android:layout_marginLeft="20dp"
                     android:orientation="vertical" >
 
                     <TextView
@@ -127,6 +127,13 @@
                         android:textColor="@android:color/white" android:layout_marginTop="-7dp"/>
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/chart2"
+                    android:layout_width="200dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>               
 
             </RelativeLayout>
 
@@ -147,7 +154,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
-                    android:layout_marginLeft="45dp"
+                    android:layout_marginLeft="20dp"
                     android:orientation="vertical" >
 
                     <TextView
@@ -168,6 +175,13 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/chart3"
+                    android:layout_width="200dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+                
             </RelativeLayout>
 
         </LinearLayout>

@@ -2,6 +2,7 @@ package com.nightshadelabs.node;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.achartengine.ChartFactory;
@@ -37,14 +38,38 @@ public class ClimaActivity extends BaseSensorActivity {
 	private TextView barometric;
 	private TextView temperature;
 	
-	private XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
-	private XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
-	private org.achartengine.model.XYSeries mCurrentSeries;
-	private XYSeriesRenderer mCurrentRenderer;
-	private GraphicalView mChartView;
+	private static final int MAX_POINTS = 200;
 	
+	//Tempurature graph vars 
+	private XYMultipleSeriesDataset tempDataset = new XYMultipleSeriesDataset();
+	private XYMultipleSeriesRenderer tempRenderer = new XYMultipleSeriesRenderer();
+	private XYSeries tempSeries;
+	private GraphicalView tempChartView;
+	private Double tempMax = 0d;
+	private Double tempMin = 0d;
+	private List<Double> tempArray;
+	
+	//Humidity graph vars 
+	private XYMultipleSeriesDataset humiDataset = new XYMultipleSeriesDataset();
+	private XYMultipleSeriesRenderer humiRenderer = new XYMultipleSeriesRenderer();
+	private XYSeries humiSeries;
+	private GraphicalView humiChartView;
+	private Double humiMax = 0d;
+	private Double humiMin = 0d;
+	private List<Double> humiArray;
+	
+	//Pressure graph vars 
+	private XYMultipleSeriesDataset presDataset = new XYMultipleSeriesDataset();
+	private XYMultipleSeriesRenderer presRenderer = new XYMultipleSeriesRenderer();
+	private XYSeries presSeries;
+	private GraphicalView presChartView;
+	private Double presMax = 0d;
+	private Double presMin = 0d;
+	private List<Double> presArray;
+
 	Node app;
 	private Context context;
+	
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +85,72 @@ public class ClimaActivity extends BaseSensorActivity {
         
         app = (Node)getApplication();
         sensor = app.getSensor();
+        
+      //Tempurature
+        LinearLayout chart1 = (LinearLayout) findViewById(R.id.chart1);
+        
+        tempRenderer = Node.getGraphStyle(tempRenderer);
+        
+        tempChartView = ChartFactory.getLineChartView(this, tempDataset, tempRenderer);
+
+        chart1.addView(tempChartView, new LayoutParams(LayoutParams.FILL_PARENT,
+                LayoutParams.FILL_PARENT));
+        tempChartView.repaint();
+        
+        tempSeries = new XYSeries("temp");
+        tempDataset.addSeries(tempSeries);
+        XYSeriesRenderer renderer1 = new XYSeriesRenderer();
+        tempRenderer.addSeriesRenderer(renderer1);
+        //renderer.setPointStyle(PointStyle.CIRCLE);
+        //renderer.setFillPoints(true);
+        renderer1.setLineWidth(4);
+        renderer1.setColor(Color.RED);
+
+        tempArray = new ArrayList<Double>();
+        
+        //Humidity
+        LinearLayout chart2 = (LinearLayout) findViewById(R.id.chart2);
+        
+        humiRenderer = Node.getGraphStyle(humiRenderer);
+        
+        humiChartView = ChartFactory.getLineChartView(this, humiDataset, humiRenderer);
+        
+        chart2.addView(humiChartView, new LayoutParams(LayoutParams.FILL_PARENT,
+                LayoutParams.FILL_PARENT));
+        humiChartView.repaint();
+        
+        humiSeries = new XYSeries("humi");
+        humiDataset.addSeries(humiSeries);
+        XYSeriesRenderer renderer2 = new XYSeriesRenderer();
+        humiRenderer.addSeriesRenderer(renderer2);
+        //renderer.setPointStyle(PointStyle.CIRCLE);
+        //renderer.setFillPoints(true);
+        renderer2.setLineWidth(4);
+        renderer2.setColor(Color.RED);
+
+        humiArray = new ArrayList<Double>();
+        
+      	//Pressure
+        LinearLayout chart3 = (LinearLayout) findViewById(R.id.chart3);
+        
+        presRenderer = Node.getGraphStyle(presRenderer);
+        
+        presChartView = ChartFactory.getLineChartView(this, presDataset, presRenderer);
+        
+        chart3.addView(presChartView, new LayoutParams(LayoutParams.FILL_PARENT,
+                LayoutParams.FILL_PARENT));
+        presChartView.repaint();
+        
+        presSeries = new XYSeries("pres");
+        presDataset.addSeries(presSeries);
+        XYSeriesRenderer renderer3 = new XYSeriesRenderer();
+        presRenderer.addSeriesRenderer(renderer3);
+        //renderer.setPointStyle(PointStyle.CIRCLE);
+        //renderer.setFillPoints(true);
+        renderer3.setLineWidth(4);
+        renderer3.setColor(Color.RED);
+
+        presArray = new ArrayList<Double>();
     }
 	
 	@Override
@@ -100,111 +191,6 @@ public class ClimaActivity extends BaseSensorActivity {
         
         
         
-        LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
-        mRenderer.setApplyBackgroundColor(false);
-        //mRenderer.setBackgroundColor(Color.argb(100, 50, 50, 50));
-        mRenderer.setAxisTitleTextSize(0);
-        //mRenderer.setLabelsColor(Color.CYAN);
-        mRenderer.setShowLegend(false);
-        mRenderer.setShowLabels(true);
-        mRenderer.setShowGrid(true);
-        mRenderer.setShowAxes(false);
-        mRenderer.setXLabels(0);
-        mRenderer.setYLabels(4);
-        mRenderer.setApplyBackgroundColor(false);
-        mRenderer.setZoomEnabled(false);
-        mRenderer.setPanEnabled(false);
-        //mRenderer.setChartTitleTextSize(20);
-        //mRenderer.setLabelsTextSize(15);
-        //mRenderer.setLegendTextSize(15);
-        //mRenderer.setMargins(new int[] { 0, 10, 0, 0 });
-
-        mRenderer.setMarginsColor(Color.argb(0, 50, 50, 50)); //transparent
-        mRenderer.setZoomButtonsVisible(false);
-        //mRenderer.setPointSize(20);
-        mChartView = ChartFactory.getLineChartView(this, mDataset, mRenderer);
-        
-        layout.addView(mChartView, new LayoutParams(LayoutParams.FILL_PARENT,
-                LayoutParams.FILL_PARENT));
-        mChartView.repaint();
-        
-        XYSeries series = new XYSeries("temp");
-        mDataset.addSeries(series);
-        mCurrentSeries = series;
-        XYSeriesRenderer renderer = new XYSeriesRenderer();
-        mRenderer.addSeriesRenderer(renderer);
-        //renderer.setPointStyle(PointStyle.CIRCLE);
-        //renderer.setFillPoints(true);
-        renderer.setLineWidth(4);
-        renderer.setColor(Color.RED);
-        mCurrentRenderer = renderer;
-        
-        mCurrentSeries.add(0, 0);
-        mCurrentSeries.add(1, 5);
-        mCurrentSeries.add(2, 6);
-        mCurrentSeries.add(3, 6);
-        mCurrentSeries.add(4, 3);
-        
-        mCurrentSeries.clear();
-        
-        mCurrentSeries.add(0, 0);
-        mCurrentSeries.add(1, 5);
-        
-        mChartView.repaint();
-        
-        
-     // Initialize our XYPlot reference:
-      /*  XYPlot mySimpleXYPlot = (XYPlot) findViewById(R.id.mySimpleXYPlot);
- 
-        // Create two arrays of y-values to plot:
-        Number[] series1Numbers = {1, 8, 5, 2, 7, 4};
-        Number[] series2Numbers = {4, 6, 3, 8, 2, 10};
-        
-        mySimpleXYPlot.getGraphWidget().getGridBackgroundPaint().setColor(Color.WHITE);
-        mySimpleXYPlot.getGraphWidget().getGridLinePaint().setColor(Color.WHITE);
-        //mySimpleXYPlot.getGraphWidget().getGridLinePaint().setPathEffect(new DashPathEffect(new float[]{1,1}, 1));
-        //mySimpleXYPlot.getGraphWidget().getDomainOriginLinePaint().setColor(Color.BLACK);
-        //mySimpleXYPlot.getGraphWidget().getRangeOriginLinePaint().setColor(Color.BLACK);
-        //mySimpleXYPlot.getGraphWidget().setMarginRight(5);
- 
-        //mySimpleXYPlot.setBorderStyle(null, null, null);
-        //mySimpleXYPlot.getBorderPaint().setStrokeWidth(1);
-        //mySimpleXYPlot.getBorderPaint().setAntiAlias(false);
-        //mySimpleXYPlot.getBorderPaint().setColor(Color.WHITE);
- 
-        // Turn the above arrays into XYSeries:
-        XYSeries series1 = new SimpleXYSeries(
-                Arrays.asList(series1Numbers),          // SimpleXYSeries takes a List so turn our array into a List
-                SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, // Y_VALS_ONLY means use the element index as the x value
-                "");                             // Set the display title of the series
- 
-        // Same as above, for series2
-        XYSeries series2 = new SimpleXYSeries(Arrays.asList(series2Numbers), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, 
-                "Series2");
- 
-        // Create a formatter to use for drawing a series using LineAndPointRenderer:
-        LineAndPointFormatter series1Format = new LineAndPointFormatter(
-                Color.rgb(0, 200, 0),                   // line color
-                Color.rgb(0, 200, 0),                   // point color
-                null);              // fill color (optional)
- 
-        
-        // Add series1 to the xyplot:
-        mySimpleXYPlot.addSeries(series1, series1Format);
- 
-        // Same as above, with series2:
-        //mySimpleXYPlot.addSeries(series2, new LineAndPointFormatter(Color.rgb(0, 0, 200), Color.rgb(0, 0, 100),
-                //Color.rgb(150, 150, 190)));
- 
- 
-        // Reduce the number of range labels
-        mySimpleXYPlot.setTicksPerRangeLabel(1);
- 
-        // By default, AndroidPlot displays developer guides to aid in laying out your plot.
-        // To get rid of them call disableAllMarkup():
-        mySimpleXYPlot.disableAllMarkup();
-        */
-       
         
 	}
 
@@ -234,6 +220,127 @@ public class ClimaActivity extends BaseSensorActivity {
         	 humidity.setText(weather.getHumidity().toString()); 
         	 barometric.setText(weather.getBarometricKPA().toString()); 
         	 temperature.setText(weather.getTemperatureF().toString()); 
+        	 
+        	 if(weather.getTemperatureF() != 0)
+        	 {
+        		 
+            	 tempArray.add(weather.getTemperatureF());
+            	 
+            	 if(tempArray.size()>=MAX_POINTS)
+            	 {
+            		tempArray.remove(tempArray.size()-MAX_POINTS);           		
+            	 }
+            	 
+            	 tempSeries.clear();
+            	 int j = 0; // zero base our index regardless of position
+            	 for(Double point :tempArray)
+            	 {
+            		 tempSeries.add(j, point);
+            		 j++;
+            		 
+            	 }
+        		 
+            	 Double value = weather.getTemperatureF();
+            	            
+	             if(value < tempMin)
+	             {
+	            	 tempMin = value;
+	            	 tempRenderer.setYAxisMin(tempMin);
+	             }
+	             if(value > tempMax)
+	             {
+	            	 tempMax = value;
+	            	 tempRenderer.setYAxisMax(tempMax);
+	             }
+	             if(tempMin == tempMax)
+	             {
+	            	 tempMax = value+1;
+	            	 tempMin = value-1;
+	             }	 
+
+	             tempChartView.repaint();
+        	 }
+        	 
+        	 if(weather.getHumidity() != 0)
+        	 {
+        		 
+            	 humiArray.add(weather.getHumidity());
+            	 
+            	 if(humiArray.size()>=MAX_POINTS)
+            	 {
+            		 humiArray.remove(humiArray.size()-MAX_POINTS);           		
+            	 }
+            	 
+            	 humiSeries.clear();
+            	 int j = 0; // zero base our index regardless of position
+            	 for(Double point :humiArray)
+            	 {
+            		 humiSeries.add(j, point);
+            		 j++;
+            		 
+            	 }
+        		 
+            	 Double value = weather.getHumidity();
+            	             
+	             if(value < humiMin)
+	             {
+	            	 humiMin = value;
+	            	 humiRenderer.setYAxisMin(humiMin);
+	             }
+	             if(value > humiMax)
+	             {
+	            	 humiMax = value;
+	            	 humiRenderer.setYAxisMax(humiMax);
+	             }
+	             if(humiMin == humiMax)
+	             {
+            		 humiMax = value+1;
+	            	 humiMin = value-1;
+	             }	 
+
+	             humiChartView.repaint();
+        	 }
+        	 
+
+        	 if(weather.getHumidity() != 0)
+        	 {
+        		 
+            	 presArray.add(weather.getBarometricKPA());
+            	 
+            	 if(presArray.size()>=MAX_POINTS)
+            	 {
+            		 presArray.remove(presArray.size()-MAX_POINTS);           		
+            	 }
+            	 
+            	 presSeries.clear();
+            	 int j = 0; // zero base our index regardless of position
+            	 for(Double point :presArray)
+            	 {
+            		 presSeries.add(j, point);
+            		 j++;
+            		 
+            	 }
+        		 
+            	 Double value = weather.getBarometricKPA();
+            	              
+	             if(value < presMin)
+	             {
+	            	 presMin = value;
+	            	 presRenderer.setYAxisMin(presMin);
+	             }
+	             if(value > presMax)
+	             {
+	            	 presMax = value;
+	            	 presRenderer.setYAxisMax(presMax);
+	             }
+	             if(presMin == presMax)
+	             {
+            		 presMax = value+1;
+            		 presMin = value-1;
+	             }	
+
+	             presChartView.repaint();
+        	 }
          }   
 
     }
