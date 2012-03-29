@@ -46,34 +46,27 @@ public class Node extends Application{
 	public static XYMultipleSeriesRenderer getGraphStyle(XYMultipleSeriesRenderer mRenderer)
 	{
 		mRenderer.setApplyBackgroundColor(false);
-        //mRenderer.setBackgroundColor(Color.argb(100, 50, 50, 50));
-        //mRenderer.setAxisTitleTextSize(20f);
-        //mRenderer.setLabelsColor(Color.CYAN);
+
         mRenderer.setShowLegend(false);
         mRenderer.setShowLabels(true);
         mRenderer.setShowGrid(true);
         mRenderer.setGridColor(Color.WHITE);
-        mRenderer.setLabelsTextSize(20f);
-        mRenderer.setLabelsColor(Color.WHITE);
+        mRenderer.setLabelsTextSize(30f);
+        mRenderer.setYLabelsColor(0, Color.WHITE); // this line will probably change with an update library
+        mRenderer.setShowXLabels(false);
         mRenderer.setXLabels(0);
-        mRenderer.setYLabels(4);
-        mRenderer.setShowAxes(true);
-        mRenderer.setAxesColor(Color.WHITE);
-        //mRenderer.setShowGridY(true);
+        //mRenderer.setShowGridX(false); //line above works better
+        
+        mRenderer.setYLabels(2);
+
         mRenderer.setApplyBackgroundColor(false);
         mRenderer.setZoomEnabled(false);
         mRenderer.setPanEnabled(false);
         
-        mRenderer.setLegendHeight(0);
-
-        //mRenderer.setChartTitleTextSize(20);
-        //mRenderer.setLabelsTextSize(15);
-        //mRenderer.setLegendTextSize(15);
-        //mRenderer.setMargins(new int[] { 0, 10, 0, 0 });
+        mRenderer.setMargins(new int[] { 30, 60, 15, 20 });
 
         mRenderer.setMarginsColor(Color.argb(0, 50, 50, 50)); //transparent
         mRenderer.setZoomButtonsVisible(false);
-        //mRenderer.setPointSize(20);
         
         return mRenderer;
 	}

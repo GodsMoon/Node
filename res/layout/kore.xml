@@ -58,7 +58,7 @@
                     android:layout_height="fill_parent"
                     android:layout_alignLeft="@+id/imageView2"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginLeft="55dp"
                     android:orientation="vertical" >
 
                     <TextView
@@ -115,7 +115,7 @@
                     android:layout_height="fill_parent"
                     android:layout_alignLeft="@+id/imageView3"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginLeft="55dp"
                     android:orientation="vertical" >
 
                     <TextView
@@ -189,7 +189,7 @@
                     android:layout_height="fill_parent"
                     android:layout_alignLeft="@+id/imageView5"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginLeft="55dp"
                     android:orientation="vertical" >
 
                     <TextView

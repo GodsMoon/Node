@@ -256,6 +256,9 @@ public class ClimaActivity extends BaseSensorActivity {
 	             {
 	            	 tempMax = value+1;
 	            	 tempMin = value-1;
+	            	 
+	            	 tempRenderer.setYAxisMin(tempMin);
+	            	 tempRenderer.setYAxisMax(tempMax);
 	             }	 
 
 	             tempChartView.repaint();
@@ -296,6 +299,9 @@ public class ClimaActivity extends BaseSensorActivity {
 	             {
             		 humiMax = value+1;
 	            	 humiMin = value-1;
+	            	 
+	            	 humiRenderer.setYAxisMin(humiMin);
+	            	 humiRenderer.setYAxisMax(humiMax);
 	             }	 
 
 	             humiChartView.repaint();
@@ -337,6 +343,9 @@ public class ClimaActivity extends BaseSensorActivity {
 	             {
             		 presMax = value+1;
             		 presMin = value-1;
+            		 
+            		 presRenderer.setYAxisMin(presMin);
+            		 presRenderer.setYAxisMax(presMax);
 	             }	
 
 	             presChartView.repaint();

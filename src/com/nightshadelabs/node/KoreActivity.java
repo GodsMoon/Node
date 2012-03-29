@@ -440,6 +440,9 @@ public class KoreActivity extends BaseSensorActivity {
              {
             	 gyrMin = minValue-1;
             	 gyrMax = maxValue+1;
+            	 
+            	 gyrRenderer.setYAxisMin(gyrMin);
+            	 gyrRenderer.setYAxisMax(gyrMax);
              }	 
 
              gyrChartView.repaint();
