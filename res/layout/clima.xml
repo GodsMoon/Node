@@ -1,38 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
-
-    <RelativeLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="90dp"
-            android:adjustViewBounds="true" android:background="@drawable/header_blue_gradient"/>
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:src="@drawable/logo_node_white" android:layout_centerVertical="true" android:layout_marginLeft="50dp"/>
-    </RelativeLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" >
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical">
-
+            android:orientation="vertical">
             <ImageButton
                 android:id="@+id/header"
                 style="@style/layout_item_section"
@@ -92,7 +67,7 @@
             </RelativeLayout>
             
             <RelativeLayout
-                android:id="@+id/humitity"
+                android:id="@+id/humi"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true" >
@@ -186,41 +161,3 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <RelativeLayout
-        android:id="@+id/footer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="90dp"
-            android:adjustViewBounds="true" android:background="@drawable/footer_grey_zone"/>
-
-        <LinearLayout            
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:layout_centerHorizontal="true">
-
-            <ImageButton
-                android:id="@+id/twitter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                
-                android:background="@drawable/but_twitter" android:scaleX=".6" android:scaleY=".6"/>
-            
-            <ImageButton
-                android:id="@+id/facebook"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_gravity="center"
-                android:background="@drawable/but_facebook" android:scaleX=".6" android:scaleY=".6"/>
-            
-        </LinearLayout>
-
-    </RelativeLayout>
-
-</LinearLayout>

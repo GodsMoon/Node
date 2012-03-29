@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/koreButton"
+                style="@style/layout_item_section"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/kore_button" />
+
+            <Button
+                android:id="@+id/climaButton"
+                style="@style/layout_item_section"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" android:background="@drawable/clima_button"/>
+
+            <Button
+                android:id="@+id/lumaButton"
+                style="@style/layout_item_section"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/luma_button" />
+
+            <Button
+                android:id="@+id/moreButton"
+                style="@style/layout_item_section"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/more_to_come" />
+        </LinearLayout>
+    </ScrollView>
