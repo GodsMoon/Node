@@ -47,7 +47,7 @@ public class ClimaFragment extends Fragment {
 	private TextView barometric;
 	private TextView temperature;
 	
-	private static final int MAX_POINTS = 200;
+	private static final int MAX_POINTS = 100;
 	
 	//Tempurature graph vars 
 	private XYMultipleSeriesDataset tempDataset = new XYMultipleSeriesDataset();
@@ -237,17 +237,7 @@ public class ClimaFragment extends Fragment {
         		 
             	 Double value = weather.getTemperatureF();
             	            
-	             if(value < tempMin)
-	             {
-	            	 tempMin = value;
-	            	 tempRenderer.setYAxisMin(tempMin);
-	             }
-	             if(value > tempMax)
-	             {
-	            	 tempMax = value;
-	            	 tempRenderer.setYAxisMax(tempMax);
-	             }
-	             if(tempMin == tempMax)
+            	 if( tempMax - tempMin < 1 )
 	             {
 	            	 tempMax = value+1;
 	            	 tempMin = value-1;
@@ -255,7 +245,19 @@ public class ClimaFragment extends Fragment {
 	            	 tempRenderer.setYAxisMin(tempMin);
 	            	 tempRenderer.setYAxisMax(tempMax);
 	             }	 
-
+            	 else{
+            		 if(value < tempMin)
+		             {
+		            	 tempMin = value;
+		            	 tempRenderer.setYAxisMin(tempMin);
+		             }
+		             if(value > tempMax)
+		             {
+		            	 tempMax = value;
+		            	 tempRenderer.setYAxisMax(tempMax);
+		             }
+            	 }
+            	 
 	             tempChartView.repaint();
         	 }
         	 

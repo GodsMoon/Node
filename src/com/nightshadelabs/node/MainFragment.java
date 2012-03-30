@@ -18,7 +18,7 @@ import android.widget.ScrollView;
 
 public class MainFragment extends Fragment {
 	
-	Context context;
+	MainActivity context;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,8 +26,8 @@ public class MainFragment extends Fragment {
 	 
 	    ScrollView view = (ScrollView) inflater.inflate(R.layout.main_nav, container, false);
 	 
-	    context = getActivity();
-	    ((MainActivity) context).setFooter(R.id.footer_main);
+	    context = (MainActivity) getActivity();
+	    context.setFooter(R.id.footer_main);
         
         Button kore = (Button)view.findViewById(R.id.koreButton);
         Button clima = (Button)view.findViewById(R.id.climaButton);
@@ -84,14 +84,22 @@ public class MainFragment extends Fragment {
 		Runnable r = new Runnable() {
 			public void run () {
 				
+				if(f instanceof KoreFragment)
+					context.mPager.setCurrentItem(1,true);
+				if(f instanceof ClimaFragment)
+					context.mPager.setCurrentItem(2,false);
+				if(f instanceof LumaFragment)
+					context.mPager.setCurrentItem(3,false);
+				
+				
 				// Execute a transaction, replacing any existing
 		        // fragment with this one inside the frame.
-		        FragmentTransaction ft = getFragmentManager().beginTransaction();
-		        ft.replace(R.id.main_nav, f);
+		        /*FragmentTransaction ft = getFragmentManager().beginTransaction();
+		        ft.replace(R.id.pager, f);
 		        ft.addToBackStack(null);
 		        //ft.setCustomAnimations(R.animator.slide_in, R.animator.slide_in);
 		        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-		        ft.commit();
+		        ft.commit();*/
 			}  
 		};
 		
@@ -106,6 +114,5 @@ public class MainFragment extends Fragment {
 		
 		
 	}
-   
     
 }

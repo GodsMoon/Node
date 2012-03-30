@@ -3,16 +3,23 @@ package com.nightshadelabs.node;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
 
@@ -20,6 +27,12 @@ public class MainActivity extends FragmentActivity {
 	private BluetoothService BTService;
 	
 	private final Handler mHandler = new Handler();
+	
+	static final int NUM_ITEMS = 4;
+
+    private PagerAdapter mPagerAdapter;
+
+    public ViewPager mPager;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,10 +44,10 @@ public class MainActivity extends FragmentActivity {
         
         FragmentManager fragMgr = getSupportFragmentManager();
         FragmentTransaction xact = fragMgr.beginTransaction();
-        if (null == fragMgr.findFragmentByTag("test")) {
+        if (null == fragMgr.findFragmentByTag("main")) {
         	MainFragment main = new MainFragment();
         	//oreActivity kore = new KoreActivity();
-            xact.add(R.id.main_nav, main, "test");
+            xact.add(R.id.pager, main, "main");
         }
         xact.commit();
         
@@ -50,6 +63,17 @@ public class MainActivity extends FragmentActivity {
 				aboutClicked();
 			}
 		});
+        
+        mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
+
+        mPager = (ViewPager)findViewById(R.id.pager);
+        mPager.setAdapter(mPagerAdapter);
+        
+        if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {     
+            Toast.makeText(this, "Large screen",Toast.LENGTH_LONG).show();
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        }
     }
 	
 	protected void aboutClicked() {
@@ -77,7 +101,7 @@ public class MainActivity extends FragmentActivity {
 				// Execute a transaction, replacing any existing
 		        // fragment with this one inside the frame.
 		        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-		        ft.replace(R.id.main_nav, about);
+		        ft.replace(R.id.pager, about);
 		        ft.addToBackStack(null);
 		        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 		        ft.commit();
@@ -132,13 +156,53 @@ public class MainActivity extends FragmentActivity {
         }
 	}
 	
-	 @Override
-	    public void onDestroy() {
-	        super.onDestroy();
-	        
-	        // Stop the Bluetooth services
-	        if (BTService != null) 
-	        	BTService.stop();
-	        
-	    }
+
+	@Override
+	public void onBackPressed() {		
+		
+		if(mPager.getCurrentItem() == 0)
+			super.onBackPressed();
+		else
+			mPager.setCurrentItem(0,false);
+
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+
+		// Stop the Bluetooth services
+		if (BTService != null) 
+			BTService.stop();
+
+	}
+	
+	public static class PagerAdapter extends FragmentStatePagerAdapter {
+        public PagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public int getCount() {
+            return NUM_ITEMS;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+        	switch(position)
+        	{
+        	case 0: return new MainFragment();
+    			//break;
+        	case 1: return new KoreFragment();
+        		//break;
+        	case 2:return new ClimaFragment();
+        		//break;
+        	case 3:return new LumaFragment();
+    			//break;
+        	}
+        	
+			return null;
+            
+        }
+    }
 }

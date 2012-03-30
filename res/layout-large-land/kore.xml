@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" 
+            android:layout_gravity="center_vertical">
+
+            <ImageButton
+                android:id="@+id/koreHeader"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true" android:background="@drawable/kore_header" android:layout_marginTop="10dp" style="@style/layout_item_section"/>
+
+            <RelativeLayout
+                android:id="@+id/accela"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true" >
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    style="@style/layout_item_section"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/kore_first_bar" />
+
+                <LinearLayout                   
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignLeft="@+id/imageView2"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="55dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/accelaX"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="X:"
+                        android:textAppearance="?android:attr/textAppearanceMedium" android:textColor="@android:color/white"/>
+
+                    <TextView
+                        android:id="@+id/accelaY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="Y:"
+                        android:textAppearance="?android:attr/textAppearanceMedium" android:textColor="@android:color/white"/>
+
+                    <TextView
+                        android:id="@+id/accelaZ"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="Z:"
+                        android:textAppearance="?android:attr/textAppearanceMedium" android:textColor="@android:color/white"/>
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:id="@+id/chart1"
+                    android:layout_width="200dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/magna"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true" >
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    style="@style/layout_item_section"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/kore_second_bar" />
+
+                
+                <LinearLayout                   
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignLeft="@+id/imageView3"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="55dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/magnaX"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="X:"
+                        android:textAppearance="?android:attr/textAppearanceMedium" android:textColor="@android:color/white"/>
+
+                    <TextView
+                        android:id="@+id/magnaY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="Y:"
+                        android:textAppearance="?android:attr/textAppearanceMedium" android:textColor="@android:color/white"/>
+
+                    <TextView
+                        android:id="@+id/magnaZ"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="Z:"
+                        android:textAppearance="?android:attr/textAppearanceMedium" android:textColor="@android:color/white"/>
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/frameLayout1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true" android:visibility="gone">
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/magnaMagnitude"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/frameLayout1"
+                    android:text="Magnitude:"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/white" android:layout_centerVertical="true" android:visibility="gone"/>
+
+                <LinearLayout
+                    android:id="@+id/chart2"
+                    android:layout_width="200dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+                
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:id="@+id/gyra"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true" >
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    style="@style/layout_item_section"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/imageView4"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/kore_third_bar" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignLeft="@+id/imageView5"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="55dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/gyraA"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="A:"
+                        android:textAppearance="?android:attr/textAppearanceMedium" android:textColor="@android:color/white"/>
+
+                    <TextView
+                        android:id="@+id/gyraB"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="B:"
+                        android:textAppearance="?android:attr/textAppearanceMedium" android:textColor="@android:color/white"/>
+
+                    <TextView
+                        android:id="@+id/gyraG"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="G:"
+                        android:textAppearance="?android:attr/textAppearanceMedium" android:textColor="@android:color/white"/>
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:id="@+id/chart3"
+                    android:layout_width="200dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+                
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>

@@ -4,7 +4,10 @@ import org.achartengine.renderer.XYMultipleSeriesRenderer;
 
 
 import android.app.Application;
+import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.Paint.Align;
 import android.os.Handler;
 
 public class Node extends Application{
@@ -37,7 +40,7 @@ public class Node extends Application{
 		}
 		else{
 			BTService.stopAllSensors(); //make sure all sensors are stopped before we start new ones
-			BTService.setHandler(mHandler);
+			BTService.addHandler(mHandler);
 		}
 		
 		return BTService;
@@ -49,9 +52,10 @@ public class Node extends Application{
 
         mRenderer.setShowLegend(false);
         mRenderer.setShowLabels(true);
+        mRenderer.setYLabelsAlign(Align.RIGHT);
         mRenderer.setShowGrid(true);
         mRenderer.setGridColor(Color.WHITE);
-        mRenderer.setLabelsTextSize(30f);
+        mRenderer.setLabelsTextSize(28f);
         mRenderer.setYLabelsColor(0, Color.WHITE); // this line will probably change with an update library
         mRenderer.setShowXLabels(false);
         mRenderer.setXLabels(0);
@@ -63,7 +67,7 @@ public class Node extends Application{
         mRenderer.setZoomEnabled(false);
         mRenderer.setPanEnabled(false);
         
-        mRenderer.setMargins(new int[] { 30, 60, 15, 20 });
+        mRenderer.setMargins(new int[] { 30, 110, 15, 20 });
 
         mRenderer.setMarginsColor(Color.argb(0, 50, 50, 50)); //transparent
         mRenderer.setZoomButtonsVisible(false);
@@ -72,6 +76,10 @@ public class Node extends Application{
 	}
 
 	
-	
+	public static boolean isTablet(Context context) {
+	    return (context.getResources().getConfiguration().screenLayout
+	            & Configuration.SCREENLAYOUT_SIZE_MASK)
+	            >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+	}
 
 }

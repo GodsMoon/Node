@@ -56,7 +56,7 @@ public class KoreFragment extends Fragment {
 	private TextView gyraB;
 	private TextView gyraG;
 	
-	private static final int MAX_POINTS = 200;
+	private static final int MAX_POINTS = 100;
 	
 	//Accela graph vars 
 	private XYMultipleSeriesDataset accDataset = new XYMultipleSeriesDataset();
@@ -228,6 +228,8 @@ public class KoreFragment extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
+		
+		Log.e("KORE", "onResume");
 		
 		BTService = app.getBTService(mHandler);    	
     	

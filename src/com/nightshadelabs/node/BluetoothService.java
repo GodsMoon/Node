@@ -22,6 +22,8 @@ package com.nightshadelabs.node;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import com.nightshadelabs.node.NodeSensor;
 
@@ -63,6 +65,7 @@ public class BluetoothService {
     // Member fields
     private final BluetoothAdapter mAdapter;
     private Handler mHandler;
+    private List<Handler> mHandlerArray = new ArrayList<Handler>();
     private AcceptThread mSecureAcceptThread;
     private ConnectThread mConnectThread;
     private ConnectedThread mConnectedThread;
@@ -84,6 +87,7 @@ public class BluetoothService {
     public BluetoothService(Node n, Handler handler) {
         mAdapter = BluetoothAdapter.getDefaultAdapter();
         mState = STATE_NONE;
+        mHandlerArray.add(handler);
         mHandler = handler;
         
         //Node n = (Node)context.getApplicationContext();
@@ -93,8 +97,9 @@ public class BluetoothService {
         mSensor = n.getSensor();
     }
     
-    public synchronized void setHandler(Handler handler) {
+    public synchronized void addHandler(Handler handler) {
     	mHandler = handler;
+    	mHandlerArray.add(handler);
     	setState(mState); //resend state to new handler
     }
 
@@ -106,6 +111,12 @@ public class BluetoothService {
         if (D) Log.d(TAG, "setState() " + mState + " -> " + state);
         mState = state;
 
+        /*for(Handler mHandler : mHandlerArray)
+		{
+        	// Give the new state to the Handler so the UI Activity can update
+		    mHandler.obtainMessage(Node.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
+		}*/
+        
         // Give the new state to the Handler so the UI Activity can update
         mHandler.obtainMessage(Node.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
     }
@@ -470,7 +481,7 @@ public class BluetoothService {
                     mSensor.addData(buffer, bytes);
                     
                     String readMessage = new String(buffer, 0,bytes);
-                    Log.e("BTDataRead", readMessage); //raw data from Node
+                    //Log.e("BTDataRead", readMessage); //raw data from Node
 
                     // Send the obtained bytes to the UI Activity
                     mHandler.obtainMessage(Node.MESSAGE_READ, bytes, -1, buffer)
