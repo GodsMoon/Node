@@ -84,22 +84,22 @@ public class MainFragment extends Fragment {
 		Runnable r = new Runnable() {
 			public void run () {
 				
-				if(f instanceof KoreFragment)
+				/*if(f instanceof KoreFragment)
 					context.mPager.setCurrentItem(1,true);
 				if(f instanceof ClimaFragment)
 					context.mPager.setCurrentItem(2,false);
 				if(f instanceof LumaFragment)
-					context.mPager.setCurrentItem(3,false);
+					context.mPager.setCurrentItem(3,false);*/
 				
 				
 				// Execute a transaction, replacing any existing
 		        // fragment with this one inside the frame.
-		        /*FragmentTransaction ft = getFragmentManager().beginTransaction();
-		        ft.replace(R.id.pager, f);
+		        FragmentTransaction ft = getFragmentManager().beginTransaction();
+		        ft.replace(R.id.main_nav, f);
 		        ft.addToBackStack(null);
 		        //ft.setCustomAnimations(R.animator.slide_in, R.animator.slide_in);
 		        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-		        ft.commit();*/
+		        ft.commit();
 			}  
 		};
 		

@@ -28,11 +28,11 @@ public class MainActivity extends FragmentActivity {
 	
 	private final Handler mHandler = new Handler();
 	
-	static final int NUM_ITEMS = 4;
+	/*static final int NUM_ITEMS = 4;
 
     private PagerAdapter mPagerAdapter;
 
-    public ViewPager mPager;
+    public ViewPager mPager;*/
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class MainActivity extends FragmentActivity {
         if (null == fragMgr.findFragmentByTag("main")) {
         	MainFragment main = new MainFragment();
         	//oreActivity kore = new KoreActivity();
-            xact.add(R.id.pager, main, "main");
+            xact.add(R.id.main_nav, main, "main");
         }
         xact.commit();
         
@@ -64,10 +64,10 @@ public class MainActivity extends FragmentActivity {
 			}
 		});
         
-        mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
+       /* mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
 
         mPager = (ViewPager)findViewById(R.id.pager);
-        mPager.setAdapter(mPagerAdapter);
+        mPager.setAdapter(mPagerAdapter);*/
         
         if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {     
             Toast.makeText(this, "Large screen",Toast.LENGTH_LONG).show();
@@ -101,7 +101,7 @@ public class MainActivity extends FragmentActivity {
 				// Execute a transaction, replacing any existing
 		        // fragment with this one inside the frame.
 		        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-		        ft.replace(R.id.pager, about);
+		        ft.replace(R.id.main_nav, about);
 		        ft.addToBackStack(null);
 		        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 		        ft.commit();
@@ -156,17 +156,6 @@ public class MainActivity extends FragmentActivity {
         }
 	}
 	
-
-	@Override
-	public void onBackPressed() {		
-		
-		if(mPager.getCurrentItem() == 0)
-			super.onBackPressed();
-		else
-			mPager.setCurrentItem(0,false);
-
-	}
-
 	@Override
 	public void onStop() {
 		super.onStop();
@@ -176,7 +165,18 @@ public class MainActivity extends FragmentActivity {
 			BTService.stop();
 
 	}
-	
+
+	/*@Override
+	public void onBackPressed() {		
+		
+		if(mPager.getCurrentItem() == 0)
+			super.onBackPressed();
+		else
+			mPager.setCurrentItem(0,false);
+
+	}
+
+
 	public static class PagerAdapter extends FragmentStatePagerAdapter {
         public PagerAdapter(FragmentManager fm) {
             super(fm);
@@ -204,5 +204,5 @@ public class MainActivity extends FragmentActivity {
 			return null;
             
         }
-    }
+    }*/
 }

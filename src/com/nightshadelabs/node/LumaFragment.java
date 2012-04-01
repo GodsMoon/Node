@@ -1,5 +1,6 @@
 package com.nightshadelabs.node;
 
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -41,6 +42,9 @@ public class LumaFragment extends Fragment {
 	private Button button6;
 	private Button button7;
 	private Button button8;
+	
+	//False will be UP state. True will be DOWN state
+	private Boolean buttonStateArray[] = new Boolean[8];
 	
 	private Button buttonPattern1;
 	private Button buttonPattern2;
@@ -102,6 +106,9 @@ public class LumaFragment extends Fragment {
         button7 = (Button)view.findViewById(R.id.button7); 
         button8 = (Button)view.findViewById(R.id.button8); 
         
+        //set all states to UP. True = down state
+        Arrays.fill(buttonStateArray, Boolean.FALSE);
+        
         buttonPattern1 = (Button)view.findViewById(R.id.buttonPattern1); 
         buttonPattern2 = (Button)view.findViewById(R.id.buttonPattern2); 
         buttonPattern3 = (Button)view.findViewById(R.id.buttonPattern3); 
@@ -118,8 +125,8 @@ public class LumaFragment extends Fragment {
 				
 				switch(v.getId()){
 				
-					case R.id.button1:						
-						updateLED("00000001");							
+					/*case R.id.button1:						
+						updateLED("00000001");	
 						break;
 					case R.id.button2:
 						updateLED("00000010");
@@ -141,30 +148,34 @@ public class LumaFragment extends Fragment {
 						break;
 					case R.id.button8:
 						updateLED("10000000");
-						break;
+						break;*/
 					case R.id.buttonPattern1:
 					case R.id.buttonPattern2:
 					case R.id.buttonPattern3:
 						askForPattern((v.getId())); //send buttonPattern ID
 						break;
 					case R.id.buttonOn:
-						reScheduleTimer();						
+						updateLED("11111111");					
 						break;
 					case R.id.buttonOff:
+						updateLED("00000000");
 						stopLEDPatternSequence();
 						break;
 					case R.id.buttonLED:
-						if(allOn == false)
+						/*if(allOn == false)
 						{
-							updateLED("11111111");
+							
+							//reScheduleTimer();	
 							allOn = true;
 						}
 						else{
-							updateLED("00000000");
+							//stopLEDPatternSequence();
 							allOn = false;
-						}
+						}*/
+						setManualPattern();
 						break;
 				}
+				updateButtonState(v.getId());
 				
 			}			
 		};
@@ -197,6 +208,120 @@ public class LumaFragment extends Fragment {
            
     }
 	
+	protected void setManualPattern() {
+		StringBuilder sb = new StringBuilder();
+		for(int i=0; i<buttonStateArray.length;i++)
+		{
+			if(buttonStateArray[i] == true)
+				sb.append("1");
+			else
+				sb.append("0");
+		}
+	    
+		updateLED(sb.toString());
+	}
+
+	protected void updateButtonState(int id) {
+		
+		switch(id){
+		
+		case R.id.button1:						
+			if(buttonStateArray[0] == false)
+			{
+				button1.setBackgroundResource(R.drawable.button_1_down_state);
+				buttonStateArray[0] = true;
+			}else{
+				button1.setBackgroundResource(R.drawable.button_1);
+				buttonStateArray[0] = false;
+			}
+			break;
+		case R.id.button2:
+			if(buttonStateArray[1] == false)
+			{
+				button2.setBackgroundResource(R.drawable.button_2_down_state);
+				buttonStateArray[1] = true;
+			}else{
+				button2.setBackgroundResource(R.drawable.button_2);
+				buttonStateArray[1] = false;
+			}
+			break;
+		case R.id.button3:
+			if(buttonStateArray[2] == false)
+			{
+				button3.setBackgroundResource(R.drawable.button_3_down_state);
+				buttonStateArray[2] = true;
+			}else{
+				button3.setBackgroundResource(R.drawable.button_3);
+				buttonStateArray[2] = false;
+			}
+			break;
+		case R.id.button4:
+			if(buttonStateArray[3] == false)
+			{
+				button4.setBackgroundResource(R.drawable.button_4_down_state);
+				buttonStateArray[3] = true;
+			}else{
+				button4.setBackgroundResource(R.drawable.button_4);
+				buttonStateArray[3] = false;
+			}
+			break;
+		case R.id.button5:
+			if(buttonStateArray[4] == false)
+			{
+				button5.setBackgroundResource(R.drawable.button_5_down_state);
+				buttonStateArray[4] = true;
+			}else{
+				button5.setBackgroundResource(R.drawable.button_5);
+				buttonStateArray[4] = false;
+			}
+			break;
+		case R.id.button6:
+			if(buttonStateArray[5] == false)
+			{
+				button6.setBackgroundResource(R.drawable.button_6_down_state);
+				buttonStateArray[5] = true;
+			}else{
+				button6.setBackgroundResource(R.drawable.button_6);
+				buttonStateArray[5] = false;
+			}
+			break;
+		case R.id.button7:
+			if(buttonStateArray[6] == false)
+			{
+				button7.setBackgroundResource(R.drawable.button_7_down_state);
+				buttonStateArray[6] = true;
+			}else{
+				button7.setBackgroundResource(R.drawable.button_7);
+				buttonStateArray[6] = false;
+			}
+			break;
+		case R.id.button8:
+			if(buttonStateArray[7] == false)
+			{
+				button8.setBackgroundResource(R.drawable.button_8_down_state);
+				buttonStateArray[7] = true;
+			}else{
+				button8.setBackgroundResource(R.drawable.button_8);
+				buttonStateArray[7] = false;
+			}
+			break;
+		default:
+			//set all states to UP. True = down state
+	        Arrays.fill(buttonStateArray, Boolean.FALSE);
+	        button1.setBackgroundResource(R.drawable.button_1);
+	        button2.setBackgroundResource(R.drawable.button_2);
+	        button3.setBackgroundResource(R.drawable.button_3);
+	        button4.setBackgroundResource(R.drawable.button_4);
+	        button5.setBackgroundResource(R.drawable.button_5);
+	        button6.setBackgroundResource(R.drawable.button_6);
+	        button7.setBackgroundResource(R.drawable.button_7);
+	        button8.setBackgroundResource(R.drawable.button_8);
+			break;
+		
+	}
+		
+	}
+
 	@Override
 	public void onResume() {
     	super.onResume();
@@ -309,7 +434,8 @@ public class LumaFragment extends Fragment {
 					editor.commit();
 					dialog.dismiss();	
 					
-					Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show();
+					updateLED(input.getText().toString());
+					//Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show();
 											
 				}				
 				

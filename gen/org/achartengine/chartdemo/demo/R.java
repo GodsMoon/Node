@@ -194,11 +194,11 @@ public final class R {
         public static final int magnaX=0x7f080024;
         public static final int magnaY=0x7f080025;
         public static final int magnaZ=0x7f080026;
+        public static final int main_nav=0x7f080044;
         public static final int moreButton=0x7f080049;
         public static final int new_devices=0x7f080018;
         public static final int new_series=0x7f080053;
         public static final int ok=0x7f08004d;
-        public static final int pager=0x7f080044;
         public static final int paired_devices=0x7f080016;
         public static final int temp=0x7f080004;
         public static final int tempLayout=0x7f080007;
