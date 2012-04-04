@@ -55,7 +55,7 @@ public class Node extends Application{
         mRenderer.setYLabelsAlign(Align.RIGHT);
         mRenderer.setShowGrid(true);
         mRenderer.setGridColor(Color.WHITE);
-        mRenderer.setLabelsTextSize(28f);
+        mRenderer.setLabelsTextSize(25f);
         mRenderer.setYLabelsColor(0, Color.WHITE); // this line will probably change with an update library
         mRenderer.setShowXLabels(false);
         mRenderer.setXLabels(0);
