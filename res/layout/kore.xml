@@ -7,7 +7,7 @@
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical">
+            style="@style/content">
 
             <ImageButton
                 android:id="@+id/koreHeader"
@@ -27,15 +27,15 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:background="@drawable/kore_first_bar" />
+                    android:background="@drawable/kore_first_bar"/>
 
                 <LinearLayout                   
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:layout_alignLeft="@+id/imageView2"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="55dp"
-                    android:orientation="vertical" >
+                    android:layout_marginLeft="@dimen/kore_left_padding"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/accelaX"
@@ -64,10 +64,9 @@
                 
                 <LinearLayout
                     android:id="@+id/chart1"
-                    android:layout_width="180dp"
                     android:layout_height="80dp"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true" android:layout_width="@dimen/kore_graph_width" android:paddingRight="7dp"/>
 
             </RelativeLayout>
 
@@ -91,8 +90,8 @@
                     android:layout_height="fill_parent"
                     android:layout_alignLeft="@+id/imageView3"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="55dp"
-                    android:orientation="vertical" >
+                    android:layout_marginLeft="@dimen/kore_left_padding"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/magnaX"
@@ -138,10 +137,10 @@
 
                 <LinearLayout
                     android:id="@+id/chart2"
-                    android:layout_width="180dp"
+                    android:layout_width="@dimen/kore_graph_width"
                     android:layout_height="80dp"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true" android:paddingRight="7dp"/>
                 
             </RelativeLayout>
             
@@ -165,7 +164,7 @@
                     android:layout_height="fill_parent"
                     android:layout_alignLeft="@+id/imageView5"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="55dp"
+                    android:layout_marginLeft="@dimen/kore_left_padding"
                     android:orientation="vertical" >
 
                     <TextView
@@ -195,10 +194,10 @@
                 
                 <LinearLayout
                     android:id="@+id/chart3"
-                    android:layout_width="180dp"
+                    android:layout_width="@dimen/kore_graph_width"
                     android:layout_height="80dp"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true" android:paddingRight="7dp"/>
                 
             </RelativeLayout>
 

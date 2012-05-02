@@ -7,7 +7,7 @@
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical">
+            android:orientation="vertical" style="@style/content">
             <ImageButton
                 android:id="@+id/header"
                 style="@style/layout_item_section"
@@ -35,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                      android:layout_marginLeft="20dp"
-                    android:orientation="vertical" android:id="@+id/tempLayout">
+                    android:orientation="vertical" android:id="@+id/tempLayout" android:layout_marginTop="10dp">
 
                     <TextView
                         android:id="@+id/temperature"
@@ -43,7 +43,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:textColor="@android:color/white"
-                        android:textSize="35sp" android:layout_marginTop="10dp"/>
+                        android:textSize="25sp" android:layout_marginTop="10dp"/>
 
 
                     <TextView
@@ -52,16 +52,16 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:text="@string/temperature"
-                        android:textColor="@android:color/white"/>
+                        android:textColor="@android:color/white" android:textSize="12sp"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/chart1"
-                    android:layout_width="140dp"
+                    android:layout_width="@dimen/clima_graph_width"
                     android:layout_height="80dp"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true" android:paddingRight="7dp"/>
 
             </RelativeLayout>
             
@@ -83,14 +83,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:layout_marginLeft="20dp"
-                    android:orientation="vertical" >
+                    android:orientation="vertical" android:layout_marginTop="10dp">
 
                     <TextView
                         android:id="@+id/humidity"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:textColor="@android:color/white" android:textSize="35sp" android:layout_marginTop="10dp"/>
+                        android:textColor="@android:color/white" android:textSize="25sp" android:layout_marginTop="10dp"/>
 
                     <TextView
                         android:id="@+id/accelaY"
@@ -98,16 +98,16 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:text="@string/humidity"
-                        android:textColor="@android:color/white"/>
+                        android:textColor="@android:color/white" android:textSize="12sp"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/chart2"
-                    android:layout_width="140dp"
+                    android:layout_width="@dimen/clima_graph_width"
                     android:layout_height="80dp"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"/>               
+                    android:layout_centerVertical="true" android:paddingRight="7dp"/>               
 
             </RelativeLayout>
 
@@ -129,7 +129,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:layout_marginLeft="20dp"
-                    android:orientation="vertical" >
+                    android:orientation="vertical" android:layout_marginTop="10dp">
 
                     <TextView
                         android:id="@+id/barometric"
@@ -137,7 +137,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:textColor="@android:color/white"
-                        android:textSize="35sp" android:layout_marginTop="10dp"/>
+                        android:textSize="25sp" android:layout_marginTop="10dp"/>
 
                     <TextView
                         android:id="@+id/TextView01"
@@ -145,16 +145,16 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:text="@string/barometric"
-                        android:textColor="@android:color/white"/>
+                        android:textColor="@android:color/white" android:textSize="12sp"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/chart3"
-                    android:layout_width="140dp"
+                    android:layout_width="@dimen/clima_graph_width"
                     android:layout_height="80dp"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true" android:paddingRight="7dp"/>
                 
             </RelativeLayout>
 

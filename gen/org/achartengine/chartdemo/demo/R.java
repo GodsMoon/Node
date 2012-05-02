@@ -22,6 +22,14 @@ public final class R {
         public static final int clear2=0x7f060001;
         public static final int transparent=0x7f060000;
     }
+    public static final class dimen {
+        public static final int clima_graph_width=0x7f070003;
+        public static final int footer_height=0x7f070000;
+        public static final int graph_margin_left=0x7f070005;
+        public static final int graph_text_size=0x7f070004;
+        public static final int kore_graph_width=0x7f070001;
+        public static final int kore_left_padding=0x7f070002;
+    }
     public static final class drawable {
         public static final int achartengine=0x7f020000;
         public static final int background_blue_gradient=0x7f020001;
@@ -126,90 +134,89 @@ public final class R {
         public static final int variable_logo=0x7f020064;
     }
     public static final class id {
-        public static final int RelativeLayout01=0x7f080035;
-        public static final int RelativeLayout02=0x7f080032;
-        public static final int RelativeLayout03=0x7f08002f;
-        public static final int RelativeLayout1=0x7f080038;
-        public static final int TextView01=0x7f080012;
-        public static final int TextView03=0x7f080008;
-        public static final int about=0x7f08001b;
-        public static final int accela=0x7f080020;
-        public static final int accelaX=0x7f080021;
-        public static final int accelaY=0x7f08000d;
-        public static final int accelaZ=0x7f080022;
-        public static final int add=0x7f080051;
-        public static final int baro=0x7f08000f;
-        public static final int barometric=0x7f080011;
-        public static final int box=0x7f08002d;
-        public static final int button1=0x7f080030;
-        public static final int button2=0x7f080033;
-        public static final int button3=0x7f080036;
-        public static final int button4=0x7f080039;
-        public static final int button5=0x7f080031;
-        public static final int button6=0x7f080034;
-        public static final int button7=0x7f080037;
-        public static final int button8=0x7f08003a;
-        public static final int buttonLED=0x7f08003b;
-        public static final int buttonOff=0x7f080041;
-        public static final int buttonOn=0x7f080040;
-        public static final int buttonPattern1=0x7f08003d;
-        public static final int buttonPattern2=0x7f08003e;
-        public static final int buttonPattern3=0x7f08003f;
-        public static final int button_scan=0x7f080019;
-        public static final int cancel=0x7f08004e;
-        public static final int chart=0x7f080052;
-        public static final int chart1=0x7f080009;
-        public static final int chart2=0x7f08000e;
-        public static final int chart3=0x7f080013;
-        public static final int climaButton=0x7f080047;
-        public static final int connect=0x7f080002;
-        public static final int facebook=0x7f08001d;
-        public static final int footer_main=0x7f08001a;
-        public static final int footer_sensor=0x7f08001e;
-        public static final int frameLayout1=0x7f080027;
-        public static final int gyra=0x7f080029;
-        public static final int gyraA=0x7f08002a;
-        public static final int gyraB=0x7f08002b;
-        public static final int gyraG=0x7f08002c;
-        public static final int header=0x7f080003;
-        public static final int humi=0x7f08000a;
-        public static final int humidity=0x7f08000c;
-        public static final int imageView1=0x7f080043;
-        public static final int imageView2=0x7f08000b;
-        public static final int imageView3=0x7f080010;
-        public static final int imageView4=0x7f080014;
-        public static final int imageView5=0x7f080005;
-        public static final int input=0x7f08004c;
-        public static final int koreButton=0x7f080046;
-        public static final int koreHeader=0x7f08001f;
-        public static final int kore_fragment=0x7f080045;
-        public static final int layout_root=0x7f08004a;
-        public static final int linearLayout1=0x7f080042;
-        public static final int linearLayout2=0x7f080000;
-        public static final int linearLayout3=0x7f08002e;
-        public static final int linearLayout4=0x7f08003c;
-        public static final int lumaButton=0x7f080048;
-        public static final int magna=0x7f080023;
-        public static final int magnaMagnitude=0x7f080028;
-        public static final int magnaX=0x7f080024;
-        public static final int magnaY=0x7f080025;
-        public static final int magnaZ=0x7f080026;
-        public static final int main_nav=0x7f080044;
-        public static final int moreButton=0x7f080049;
-        public static final int new_devices=0x7f080018;
-        public static final int new_series=0x7f080053;
-        public static final int ok=0x7f08004d;
-        public static final int paired_devices=0x7f080016;
-        public static final int temp=0x7f080004;
-        public static final int tempLayout=0x7f080006;
-        public static final int temperature=0x7f080007;
-        public static final int text=0x7f08004b;
-        public static final int textView1=0x7f080001;
-        public static final int title_new_devices=0x7f080017;
-        public static final int title_paired_devices=0x7f080015;
-        public static final int twitter=0x7f08001c;
-        public static final int xValue=0x7f08004f;
-        public static final int yValue=0x7f080050;
+        public static final int RelativeLayout01=0x7f090035;
+        public static final int RelativeLayout02=0x7f090032;
+        public static final int RelativeLayout03=0x7f09002f;
+        public static final int RelativeLayout1=0x7f090038;
+        public static final int TextView01=0x7f090012;
+        public static final int TextView03=0x7f090008;
+        public static final int about=0x7f09001a;
+        public static final int accela=0x7f090020;
+        public static final int accelaX=0x7f090021;
+        public static final int accelaY=0x7f09000d;
+        public static final int accelaZ=0x7f090022;
+        public static final int add=0x7f090050;
+        public static final int baro=0x7f09000f;
+        public static final int barometric=0x7f090011;
+        public static final int box=0x7f09002d;
+        public static final int button1=0x7f090030;
+        public static final int button2=0x7f090033;
+        public static final int button3=0x7f090036;
+        public static final int button4=0x7f090039;
+        public static final int button5=0x7f090031;
+        public static final int button6=0x7f090034;
+        public static final int button7=0x7f090037;
+        public static final int button8=0x7f09003a;
+        public static final int buttonLED=0x7f09003b;
+        public static final int buttonOff=0x7f090041;
+        public static final int buttonOn=0x7f090040;
+        public static final int buttonPattern1=0x7f09003d;
+        public static final int buttonPattern2=0x7f09003e;
+        public static final int buttonPattern3=0x7f09003f;
+        public static final int button_scan=0x7f090018;
+        public static final int cancel=0x7f09004d;
+        public static final int chart=0x7f090051;
+        public static final int chart1=0x7f090009;
+        public static final int chart2=0x7f09000e;
+        public static final int chart3=0x7f090013;
+        public static final int climaButton=0x7f090046;
+        public static final int connect=0x7f090002;
+        public static final int facebook=0x7f09001e;
+        public static final int footer_main=0x7f090019;
+        public static final int footer_sensor=0x7f09001b;
+        public static final int frameLayout1=0x7f090027;
+        public static final int gyra=0x7f090029;
+        public static final int gyraA=0x7f09002a;
+        public static final int gyraB=0x7f09002b;
+        public static final int gyraG=0x7f09002c;
+        public static final int header=0x7f090003;
+        public static final int humi=0x7f09000a;
+        public static final int humidity=0x7f09000c;
+        public static final int imageView1=0x7f090043;
+        public static final int imageView2=0x7f09000b;
+        public static final int imageView3=0x7f090010;
+        public static final int imageView4=0x7f09001c;
+        public static final int imageView5=0x7f090005;
+        public static final int input=0x7f09004b;
+        public static final int koreButton=0x7f090045;
+        public static final int koreHeader=0x7f09001f;
+        public static final int layout_root=0x7f090049;
+        public static final int linearLayout1=0x7f090042;
+        public static final int linearLayout2=0x7f090000;
+        public static final int linearLayout3=0x7f09002e;
+        public static final int linearLayout4=0x7f09003c;
+        public static final int lumaButton=0x7f090047;
+        public static final int magna=0x7f090023;
+        public static final int magnaMagnitude=0x7f090028;
+        public static final int magnaX=0x7f090024;
+        public static final int magnaY=0x7f090025;
+        public static final int magnaZ=0x7f090026;
+        public static final int main_nav=0x7f090044;
+        public static final int moreButton=0x7f090048;
+        public static final int new_devices=0x7f090017;
+        public static final int new_series=0x7f090052;
+        public static final int ok=0x7f09004c;
+        public static final int paired_devices=0x7f090015;
+        public static final int temp=0x7f090004;
+        public static final int tempLayout=0x7f090006;
+        public static final int temperature=0x7f090007;
+        public static final int text=0x7f09004a;
+        public static final int textView1=0x7f090001;
+        public static final int title_new_devices=0x7f090016;
+        public static final int title_paired_devices=0x7f090014;
+        public static final int twitter=0x7f09001d;
+        public static final int xValue=0x7f09004e;
+        public static final int yValue=0x7f09004f;
     }
     public static final class layout {
         public static final int about=0x7f030000;
@@ -221,13 +228,12 @@ public final class R {
         public static final int footer_main=0x7f030006;
         public static final int footer_sensor=0x7f030007;
         public static final int kore=0x7f030008;
-        public static final int kore2=0x7f030009;
-        public static final int luma=0x7f03000a;
-        public static final int main=0x7f03000b;
-        public static final int main_nav=0x7f03000c;
-        public static final int pattern_dialog=0x7f03000d;
-        public static final int splash=0x7f03000e;
-        public static final int xy_chart=0x7f03000f;
+        public static final int luma=0x7f030009;
+        public static final int main=0x7f03000a;
+        public static final int main_nav=0x7f03000b;
+        public static final int pattern_dialog=0x7f03000c;
+        public static final int splash=0x7f03000d;
+        public static final int xy_chart=0x7f03000e;
     }
     public static final class string {
         public static final int about=0x7f050006;
@@ -239,6 +245,7 @@ public final class R {
         public static final int button_scan=0x7f050017;
         public static final int copyright=0x7f050007;
         public static final int enable_bt=0x7f05000f;
+        public static final int graph_width=0x7f050018;
         public static final int humidity=0x7f050008;
         public static final int new_series=0x7f050005;
         public static final int no_bluetooth=0x7f05000d;
@@ -261,8 +268,12 @@ public final class R {
         /**  A theme that has a translucent background.  Here we explicitly specify
          that this theme is to inherit from the system's translucent theme,
          which sets up various attributes correctly. 
+ A theme that has a translucent background.  Here we explicitly specify
+         that this theme is to inherit from the system's translucent theme,
+         which sets up various attributes correctly. 
          */
-        public static final int Theme_Translucent=0x7f070001;
-        public static final int layout_item_section=0x7f070000;
+        public static final int Theme_Translucent=0x7f080001;
+        public static final int content=0x7f080002;
+        public static final int layout_item_section=0x7f080000;
     }
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="footer_height">60dip</dimen>
+    <dimen name="kore_graph_width">190dip</dimen>
+    <dimen name="kore_left_padding">38dp</dimen>
+    <dimen name="clima_graph_width">205dp</dimen>
+    <dimen name="graph_text_size">15sp</dimen>
+    <dimen name="graph_margin_left">65dp</dimen>
+</resources>
