@@ -228,12 +228,13 @@ public final class R {
         public static final int footer_main=0x7f030006;
         public static final int footer_sensor=0x7f030007;
         public static final int kore=0x7f030008;
-        public static final int luma=0x7f030009;
-        public static final int main=0x7f03000a;
-        public static final int main_nav=0x7f03000b;
-        public static final int pattern_dialog=0x7f03000c;
-        public static final int splash=0x7f03000d;
-        public static final int xy_chart=0x7f03000e;
+        public static final int kore2=0x7f030009;
+        public static final int luma=0x7f03000a;
+        public static final int main=0x7f03000b;
+        public static final int main_nav=0x7f03000c;
+        public static final int pattern_dialog=0x7f03000d;
+        public static final int splash=0x7f03000e;
+        public static final int xy_chart=0x7f03000f;
     }
     public static final class string {
         public static final int about=0x7f050006;
